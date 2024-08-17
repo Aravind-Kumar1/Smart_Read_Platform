@@ -1,0 +1,45 @@
+.book-categories {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .categories-title {
+    text-align: center;
+    font-size: 36px;
+    color: #173B45;
+    margin-bottom: 40px;
+  }
+  
+  .categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .category-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 200px; /* Adjust size as needed */
+  }
+  
+  .category-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .category-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .category-name {
+    padding: 10px;
+    font-size: 18px;
+    color: #173B45;
+  }
+  

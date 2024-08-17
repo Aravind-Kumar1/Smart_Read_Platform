@@ -1,0 +1,20 @@
+.testimonials {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #F9EFE6;
+  }
+  
+  .testimonials h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial {
+    margin-bottom: 20px;
+  }
+  
+  .testimonial p {
+    font-size: 18px;
+    font-style: italic;
+  }
+  
