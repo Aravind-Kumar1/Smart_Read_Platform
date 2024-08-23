@@ -11,14 +11,15 @@ import shettyImage from '../../assets/shetty.jpg';
 import dieImage from '../../assets/die.jpeg';
 
 const books = [
+  { cover: shettyImage },
+  { cover: subImage },
+  { cover: moImage },
+  { cover: davidImage },
   { cover: harryImage },
   { cover: howImage },
   { cover: dieImage },
    { cover: obamaImage },
-  { cover: davidImage },
-  { cover: shettyImage },
-  { cover: subImage },
-  { cover: moImage },
+
 
   // Add more books as needed
 ];
