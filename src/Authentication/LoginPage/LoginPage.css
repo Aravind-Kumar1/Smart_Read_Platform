@@ -1,0 +1,195 @@
+/* Global styles for the entire application */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: white; /* Slightly gray background for contrast */
+}
+
+/* Specific styles for the login page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5; /* Background color for the page */
+}
+
+.login-container {
+  display: flex;
+  width: 100%;
+  max-width: 800px; /* Limit maximum width */
+  height: auto;
+  min-height: 500px; /* Ensure minimum height */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  /* Flex layout for alignment */
+  flex-direction: row;
+}
+
+.login-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  background-color: white; /* Light background for the form */
+}
+
+.login-form h1 {
+  margin-bottom: 20px;
+  font-size: 36px;
+  color: #333;
+  font-weight: 700;
+  text-align: center;
+}
+
+.login-form p {
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+}
+
+.quote-text {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form a {
+  color: #FF5100;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: calc(100% - 20px);
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-group input::placeholder {
+  color: #aaa; /* Light color for placeholder text */
+}
+
+.input-group input:focus {
+  border-color: #FF5100;
+  outline: none;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* Space for the toggle icon */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px; /* Position icon inside the input field */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #FF5100;
+  cursor: pointer;
+  font-size: 18px; /* Adjust font size */
+}
+
+.forgot-password {
+  display: block;
+  margin-bottom: 20px;
+  color: #FF5100;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.signin-button {
+  width: 100%;
+  max-width: 350px;
+  padding: 12px;
+  background-color: #FF5100;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.signin-button:hover {
+  background-color: #e04400; /* Slightly lighter shade */
+  transform: scale(1.02); /* Slight zoom effect */
+}
+
+/* Adding a quote section */
+.quote {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  font-style: italic;
+}
+
+/* Image styles */
+.login-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 0 12px 12px 0;
+  overflow: hidden;
+}
+
+.login-image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* Stack the image and form vertically on small screens */
+  }
+
+  .login-image {
+    border-radius: 0; /* Remove border-radius for smaller screens */
+    display: none; /* Hide image on very small screens */
+  }
+}

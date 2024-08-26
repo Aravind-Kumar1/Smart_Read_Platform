@@ -25,26 +25,43 @@ const BookCategories = () => {
   const gridRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const headerTop = headerRef.current.getBoundingClientRect().top;
-      const gridTop = gridRef.current.getBoundingClientRect().top;
-      const scrollPosition = window.innerHeight;
-
-      // Add animation classes when sections come into view
-      if (headerTop < scrollPosition) {
-        headerRef.current.style.opacity = '1';
-        headerRef.current.style.transform = 'translateY(0)';
-      }
-      if (gridTop < scrollPosition) {
-        const cards = gridRef.current.querySelectorAll('.category-card');
-        cards.forEach((card, index) => {
-          card.style.animation = `fadeInSequential 0.5s ${index * 0.2}s forwards`;
-        });
-      }
+    const observerOptions = {
+      threshold: 0.1 // Adjust this value based on when you want the animation to trigger
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target === headerRef.current) {
+            headerRef.current.classList.add('animate-header');
+          }
+          if (entry.target === gridRef.current) {
+            gridRef.current.classList.add('animate-grid');
+            const cards = gridRef.current.querySelectorAll('.category-card');
+            cards.forEach((card, index) => {
+              card.style.animation = `fadeInSequential 0.5s ${index * 0.2}s forwards`;
+            });
+          }
+        }
+      });
+    }, observerOptions);
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    if (gridRef.current) {
+      observer.observe(gridRef.current);
+    }
+
+    return () => {
+      if (headerRef.current) {
+        observer.unobserve(headerRef.current);
+      }
+      if (gridRef.current) {
+        observer.unobserve(gridRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -55,15 +72,19 @@ const BookCategories = () => {
       </div>
       <div ref={gridRef} className="categories-grid">
         {categories.map((category, index) => (
-          <div key={index} className="category-card">
+          <a 
+            key={index} 
+            href={`/genres/${category.name.toLowerCase()}`} 
+            className="category-card"
+          >
             <img src={category.image} alt={category.name} className="category-image" />
             <div className="category-info">
               <h3 className="category-name">{category.name}</h3>
-              <a href={`/genres/${category.name.toLowerCase()}`} className="see-more">
+              <span className="see-more">
                 See more <FaArrowRight />
-              </a>
+              </span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>

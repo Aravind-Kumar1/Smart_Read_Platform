@@ -1,0 +1,188 @@
+/* E-Book Page Styling */
+.ebook-page {
+  padding: 100px; /* Increased top padding to move content down */
+  background-color: #f9f9f9;
+}
+
+/* Animation for the E-Book Page */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-content {
+  animation: slideInUp 1s ease-out;
+}
+
+.section-title {
+  font-size: 24px;
+  color: #173B45;
+  margin-bottom: 16px;
+}
+
+.books-section {
+  margin-bottom: 40px;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* E-Book Card Styling */
+.e-book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 220px;
+  height: 320px;
+  border-radius: 12px;
+  background-color: #F9F9F9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 1s ease-out forwards;
+}
+
+.e-book-card:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+}
+
+/* Cover Container */
+.e-book-cover-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+/* Cover Image */
+.e-book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.e-book-card:hover .e-book-cover {
+  transform: scale(1.1);
+}
+
+/* Details Section */
+.e-book-details {
+  margin-top: 0;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Title */
+.e-book-title {
+  font-size: 16px;
+  color: #173B45;
+  margin: 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Author */
+.e-book-author {
+  font-size: 12px;
+  color: #666666;
+}
+
+/* E-Book Label */
+.e-book-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FF5100;
+  color: #FFFFFF;
+  font-size: 14px;
+  padding: 12px 0;
+  border-top: 1px solid #FF7A3C ;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Suggested Authors Section */
+.suggested-authors-section {
+  margin-top: 60px;
+  padding: 40px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.suggested-authors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 32px;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Author Card Styling */
+.author-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.author-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
+}
+
+.author-image-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.author-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.author-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #173B45;
+  margin: 12px 0;
+}
+
+.author-title {
+  font-size: 16px;
+  color: #666666;
+}

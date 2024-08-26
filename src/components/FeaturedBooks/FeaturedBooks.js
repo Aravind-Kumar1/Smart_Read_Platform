@@ -1,12 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './FeaturedBooks.css';
-import shettyImage from '../../assets/shetty.jpg';
-import davidImage from '../../assets/david.jpg';
+import phyImage from '../../assets/phy.jpg';
+import hoImage from '../../assets/ho.jpg';
 import subImage from '../../assets/sub.jpg';
 import moImage from '../../assets/mo.webp';
 import dieImage from '../../assets/die.jpeg';
-import phyImage from '../../assets/phy.jpg';
-import hoImage from '../../assets/ho.jpg';
 
 const books = [
   {
@@ -19,58 +18,58 @@ const books = [
   {
     id: 2,
     title: "Can't Hurt Me",
-    author: 'Jay Shetty',
+    author: 'David Goggins',
     cover: hoImage,
     publishedDate: '2023-05-15'
   },
   {
     id: 3,
-    title: 'The Subtle Art Of Not Giving A Fuck',
-    author: 'James Clear',
+    title: 'The Subtle Art Of Not Giving A F*ck',
+    author: 'Mark Manson',
     cover: subImage,
     publishedDate: '2022-01-01'
   },
   {
     id: 4,
     title: 'The Psychology of Money',
-    author: 'James Clear',
+    author: 'Morgan Housel',
     cover: moImage,
     publishedDate: '2022-01-01'
   },
   {
     id: 5,
     title: 'Who Will Cry When You Die',
-    author: 'James Clear',
+    author: 'Robin Sharma',
     cover: dieImage,
     publishedDate: '2022-01-01'
   },
-  // Add more books as needed
 ];
 
 const FeaturedBooks = () => {
+  const navigate = useNavigate();
+
   const handleReadClick = (bookId) => {
-    // Corrected string interpolation using backticks
-    alert(`Read more about book with ID: ${bookId}`);
+    navigate(`/book/${bookId}`);
   };
 
   return (
-    <section className="featured-books">
-      <h2 className="featured-books-subheading">We've got what everyone's Reading to</h2>
-      <p className="featured-books-subtagline">Best sellers. New releases. That story you've been waiting for.</p>
-      <div className="featured-books-grid">
+    <section className="f-featured-books">
+      <h2 className="f-featured-books-subheading">We've got what everyone's reading</h2>
+      <p className="f-featured-books-subtagline">Best sellers. New releases. That story you've been waiting for.</p>
+      <div className="f-featured-books-grid">
         {books.map((book) => (
-          <div key={book.id} className="book-card">
-            <div className="book-cover-container">
-              <img src={book.cover} alt={book.title} className="book-cover" />
+          <div key={book.id} className="f-book-card" onClick={() => handleReadClick(book.id)}>
+            <div className="f-book-cover-container">
+              <img src={book.cover} alt={book.title} className="f-book-cover" />
             </div>
-            <div className="book-details">
-              <h3 className="book-title">{book.title}</h3>
-              <div className="author-info">
+            <div className="f-book-details">
+              <h3 className="f-book-title">{book.title}</h3>
+              <div className="f-author-info">
                 <span>Written by</span>
-                <span className="author-name">{book.author}</span>
+                <span className="f-author-name">{book.author}</span>
               </div>
-              <span className="published-date">{book.publishedDate}</span>
-              <button className="read-button" onClick={() => handleReadClick(book.id)}>Read</button>
+              <span className="f-published-date">{book.publishedDate}</span>
+              <button className="f-read-button">Read</button>
             </div>
           </div>
         ))}

@@ -1,25 +1,28 @@
 /* General Section Styling */
-.featured-books {
+.f-featured-books {
   padding: 40px 20px;
-  background-color: #FFFFFF;
+  background-color: white; /* Set the initial background color */
   text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: f-fadeInUp 1s ease-out forwards;
 }
 
 /* Header Styling for Subheading and Subtagline */
-.featured-books-subheading {
+.f-featured-books-subheading {
   font-size: 32px;
   color: #173B45;
   margin-bottom: 10px;
 }
 
-.featured-books-subtagline {
+.f-featured-books-subtagline {
   font-size: 18px;
   color: #666666;
   margin-bottom: 40px;
 }
 
 /* Grid Styling */
-.featured-books-grid {
+.f-featured-books-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -27,35 +30,70 @@
 }
 
 /* Card Styling */
-.book-card {
+.f-book-card {
   background: #F9F9F9;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 220px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
   display: flex;
   flex-direction: column;
   position: relative;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: f-staggeredFadeIn 0.6s ease-out forwards;
+  cursor: pointer; /* Indicate that the entire card is clickable */
+}
+
+.f-book-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.f-book-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.f-book-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.f-book-card:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.f-book-card:nth-child(5) {
+  animation-delay: 1s;
+}
+
+.f-book-card:hover {
+  transform: rotateY(10deg) rotateX(10deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Cover Container */
-.book-cover-container {
+.f-book-cover-container {
   width: 100%;
   height: 200px;
   overflow: hidden;
 }
 
-.book-cover {
+.f-book-cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
   border-radius: 6px;
 }
 
+.f-book-card:hover .f-book-cover {
+  transform: scale(1.1);
+}
+
 /* Book Details */
-.book-details {
+.f-book-details {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,8 +102,8 @@
 }
 
 /* Book Title Styling */
-.book-title {
-  font-size: 16px;
+.f-book-title {
+  font-size: 18px;
   color: #173B45;
   margin: 8px 0;
   overflow: hidden;
@@ -75,7 +113,7 @@
 }
 
 /* Author Info Styling */
-.author-info {
+.f-author-info {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -83,38 +121,66 @@
   font-size: 12px;
 }
 
-.author-info span {
+.f-author-info span {
   color: #666666; /* Standard color for "Written by" */
 }
 
-.author-info span.author-name {
+.f-author-info span.f-author-name {
   color: #003060; /* Highlight author name */
   font-weight: bold; /* Make the author name stand out */
   margin-left: 5px; /* Space between "Written by" and author name */
 }
 
 /* Published Date Styling */
-.published-date {
+.f-published-date {
   font-size: 12px;
   color: #666666;
   margin-bottom: 12px;
 }
 
 /* Read Button Styling */
-.read-button {
-  font-size: 12px;
+.f-read-button {
+  font-size: 14px;
   color: #FFFFFF;
   background-color: #FF5100;
   text-decoration: none;
   border: 1px solid #FF5100;
-  border-radius: 4px;
-  padding: 6px 12px;
-  transition: background-color 0.3s, color 0.3s;
+  border-radius: 6px;
+  padding: 8px 16px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
   margin-top: 12px;
   cursor: pointer; /* Indicate that the button is clickable */
 }
 
-.read-button:hover {
+.f-read-button:hover {
   background-color: #E64500;
   color: #FFFFFF;
+  /* transform: scale(1.1); */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); Add a shadow on hover */
+}
+
+/* Animations */
+
+/* Fade-in for Section */
+@keyframes f-fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered Load Animation for Cards */
+@keyframes f-staggeredFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

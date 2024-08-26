@@ -3,7 +3,6 @@
   padding: 60px 20px;
   background-color: #F8F8F8;
   text-align: center;
-  position: relative; /* Required for positioning arrows */
 }
 
 /* Heading Styling */
@@ -20,50 +19,11 @@
   margin-bottom: 40px;
 }
 
-/* Horizontal Scroll Container */
-.audio-books-carousel {
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  white-space: nowrap;
-  scroll-behavior: smooth; /* Smooth scrolling */
-  padding: 0 60px; /* Padding to allow arrows to be visible */
-}
-
-.audio-books-carousel::-webkit-scrollbar {
-  display: none; /* Hide scrollbar */
-}
-
 /* Book Card Container */
 .audio-books-grid {
   display: flex;
-  flex-wrap: nowrap; /* Ensure cards stay in a single line */
+  justify-content: center; /* Center the cards */
+  flex-wrap: wrap;
   gap: 20px;
-}
-
-/* Navigation Arrows */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #000000;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 50%;
-  width: 40px; /* Adjusted size */
-  height: 40px; /* Adjusted size */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  font-size: 18px; /* Adjusted size */
-}
-
-.arrow-left {
-  left: 10px;
-}
-
-.arrow-right {
-  right: 10px;
+  margin-top: 20px;
 }

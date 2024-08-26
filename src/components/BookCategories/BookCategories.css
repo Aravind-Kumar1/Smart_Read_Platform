@@ -1,6 +1,6 @@
 /* General Section Styling */
 .book-categories-section {
-  padding: 50px 20px;
+  padding: 35px 20px;
   background-color: #ffffff;
   overflow: hidden;
   margin: 0 auto;
@@ -11,6 +11,14 @@
 .categories-header {
   text-align: center;
   margin-bottom: 20px;
+  opacity: 0; /* Initial state for animation */
+  transform: translateY(50px); /* Initial position for animation */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transition for animation */
+}
+
+.animate-header {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .main-heading {
@@ -34,6 +42,14 @@
   gap: 20px;
   justify-items: center;
   padding: 0 10px;
+  opacity: 0; /* Initial state for animation */
+  transform: translateY(50px); /* Initial position for animation */
+  transition: opacity 1s ease-out, transform 1s ease-out; /* Transition for animation */
+}
+
+.animate-grid {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Card Styling */
@@ -47,6 +63,8 @@
   transform: translateY(20px);
   opacity: 0;
   transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  cursor: pointer; /* Add pointer cursor */
+  text-decoration: none; /* Remove underline from link */
 }
 
 .category-card:hover {
@@ -90,34 +108,50 @@
   transform: translateX(5px);
 }
 
-/* Sequential Animation for Cards */
+/* Keyframes for Sequential Animation of Cards */
 @keyframes fadeInSequential {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Sequential Animation for Cards */
 .category-card:nth-child(1) {
-  animation: fadeInSequential 0.5s 0.1s forwards;
-}
-
-.category-card:nth-child(2) {
   animation: fadeInSequential 0.5s 0.2s forwards;
 }
 
+.category-card:nth-child(2) {
+  animation: fadeInSequential 0.6s 0.3s forwards;
+}
+
 .category-card:nth-child(3) {
-  animation: fadeInSequential 0.5s 0.3s forwards;
+  animation: fadeInSequential 0.7s 0.4s forwards;
 }
 
 .category-card:nth-child(4) {
-  animation: fadeInSequential 0.5s 0.4s forwards;
+  animation: fadeInSequential 0.8s 0.5s forwards;
 }
 
 .category-card:nth-child(5) {
-  animation: fadeInSequential 0.5s 0.5s forwards;
+  animation: fadeInSequential 0.9s 0.6s forwards;
 }
 
 .category-card:nth-child(6) {
-  animation: fadeInSequential 0.5s 0.6s forwards;
+  animation: fadeInSequential 1s 0.7s forwards;
+}
+.category-card:nth-child(7) {
+  animation: fadeInSequential 0.7s 0.4s forwards;
+}
+
+.category-card:nth-child(8) {
+  animation: fadeInSequential 0.8s 0.5s forwards;
+}
+
+.category-card:nth-child(9) {
+  animation: fadeInSequential 0.9s 0.6s forwards;
+}
+
+.category-card:nth-child(10) {
+  animation: fadeInSequential 1s 0.7s forwards;
 }
 
 /* Add more nth-child selectors as needed */
