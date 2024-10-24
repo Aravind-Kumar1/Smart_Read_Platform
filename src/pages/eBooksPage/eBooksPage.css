@@ -1,78 +1,63 @@
-/* E-Book Page Styling */
+/* eBooks Page Styles */
 .ebook-page {
-  padding: 100px; /* Increased top padding to move content down */
-  background-color: #f9f9f9;
+  padding: 100px;
 }
 
-/* Animation for the E-Book Page */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page-content {
-  animation: slideInUp 1s ease-out;
-}
-
-.section-title {
-  font-size: 24px;
-  color: #173B45;
-  margin-bottom: 16px;
-}
-
+/* General Section Styling */
 .books-section {
   margin-bottom: 40px;
 }
 
-.books-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+.section-title {
+  font-size: 32px;
+  color: #173B45;
+  margin-bottom: 20px;
+  text-align: left; /* Align section titles to the left */
 }
 
-/* E-Book Card Styling */
-.e-book-card {
+.books-grid {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 220px;
-  height: 320px;
+  flex-wrap: wrap;
+  gap: 10px; /* Decrease gap between cards */
+  justify-content: center; /* Center the grid */
+}
+
+/* Card Styling */
+.e-book-card {
+  background: #F9F9F9;
   border-radius: 12px;
-  background-color: #F9F9F9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  position: relative;
+  width: 240px;
+  text-align: center;
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-  cursor: pointer;
+  cursor: default; /* Remove pointer cursor */
   opacity: 0;
   transform: translateY(30px);
-  animation: slideInUp 1s ease-out forwards;
+  animation: e-staggeredFadeIn 0.6s ease-out forwards;
 }
 
 .e-book-card:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Cover Container */
 .e-book-cover-container {
   width: 100%;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Cover Image */
 .e-book-cover {
+  width: auto;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
 
@@ -82,107 +67,115 @@
 
 /* Details Section */
 .e-book-details {
-  margin-top: 0;
-  padding: 10px;
-  width: 100%;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* Center align text */
 }
 
-/* Title */
+/* Book Title Styling */
 .e-book-title {
-  font-size: 16px;
+  font-size: 18px;
   color: #173B45;
-  margin: 6px 0;
-  white-space: nowrap;
+  margin: 8px 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
+  white-space: nowrap;
+  width: 200px;
 }
 
-/* Author */
+/* Author Info Styling */
 .e-book-author {
+  font-size: 14px;
+  color: #173B45;
+  font-weight: bold;
+  margin: 4px 0; /* Adjust margin for spacing */
+}
+
+/* Published Date Styling */
+.e-book-published-date {
   font-size: 12px;
   color: #666666;
+  margin: 8px 0; /* Adjust margin for spacing */
 }
 
-/* E-Book Label */
-.e-book-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #FF5100;
-  color: #FFFFFF;
+/* Read Button Styling */
+.e-read-button {
   font-size: 14px;
-  padding: 12px 0;
-  border-top: 1px solid #FF7A3C ;
-  text-align: center;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  background-color: #FF5100;
+  border: 1px solid #FF5100;
+  border-radius: 6px;
+  padding: 8px 16px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+  margin-top: 12px;
+  cursor: pointer; /* Ensure the cursor is a pointer */
+  text-align: center; /* Ensure text inside the button is centered */
+}
+
+/* Ensure no hover effect on button */
+.e-read-button:hover {
+  background-color: #E64500;
+  color: #FFFFFF;
 }
 
 /* Suggested Authors Section */
 .suggested-authors-section {
-  margin-top: 60px;
-  padding: 40px;
-  background-color: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  margin-top: 40px;
 }
 
 .suggested-authors-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 32px;
-  justify-items: center;
-  align-items: center;
-}
-
-/* Author Card Styling */
-.author-card {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 24px;
-  background-color: #f9f9f9;
-  border-radius: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.author-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
-}
-
-.author-image-container {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Decrease gap between author cards */
   justify-content: center;
-  align-items: center;
 }
 
+.author-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Author Image Container */
+.author-image-container {
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+}
+
+/* Author Image */
 .author-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
+/* Author Name and Title */
 .author-name {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
   color: #173B45;
-  margin: 12px 0;
+  margin-top: 8px;
 }
 
 .author-title {
-  font-size: 16px;
+  font-size: 14px;
   color: #666666;
+}
+
+
+/* Animations */
+@keyframes e-staggeredFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,156 +1,216 @@
 import React from 'react';
 import './EBooksPage.css';
-import { useNavigate } from 'react-router-dom';
 
-// Import images for books and authors
-import book1 from '../../assets/bama.png';
-import book2 from '../../assets/shetty.jpg';
-import book3 from '../../assets/david.jpg';
-import book4 from '../../assets/harry.png';
-import book5 from '../../assets/how.png';
+// Importing book cover images
+import phyImage from '../../assets/phy.jpg'; // Replace with your actual path
+import hoImage from '../../assets/ho.jpg'; // Replace with your actual path
+import subImage from '../../assets/sub.jpg'; // Replace with your actual path
+import moImage from '../../assets/mo.webp'; // Replace with your actual path
+import dieImage from '../../assets/die.jpeg'; // Replace with your actual path
 
-import author1 from '../../assets/james.jpeg';
-import author2 from '../../assets/james.jpeg';
-import author3 from '../../assets/james.jpeg';
-import author4 from '../../assets/james.jpeg';
-import author5 from '../../assets/james.jpeg';
+// Import PDF files as modules
+import atomicPdf from '../../images/atomic.pdf'; // Replace with your actual path
+import cannotHurtPdf from '../../images/cannot_hurt.pdf'; // Replace with your actual path
 
-// Sample data for books
-const books = [
+// Hardcoded book data for each section
+const popularBooks = [
   {
     id: 1,
-    title: 'The Great Gatsby',
-    author: 'F. Scott Fitzgerald',
-    cover: book1,
-    publishedDate: '2024-08-01'
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    cover: phyImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf,
   },
   {
     id: 2,
-    title: '1984',
-    author: 'George Orwell',
-    cover: book2,
-    publishedDate: '2024-08-02'
+    title: "Can't Hurt Me",
+    author: 'David Goggins',
+    cover: hoImage,
+    publishedDate: '2023-05-15',
+    pdf: cannotHurtPdf,
   },
   {
-    id: 3,
-    title: 'Brave New World',
-    author: 'Aldous Huxley',
-    cover: book3,
-    publishedDate: '2024-08-03'
+    id: 2,
+    title: "Can't Hurt Me",
+    author: 'David Goggins',
+    cover: hoImage,
+    publishedDate: '2023-05-15',
+    pdf: cannotHurtPdf,
   },
   {
-    id: 4,
-    title: 'The Catcher in the Rye',
-    author: 'J.D. Salinger',
-    cover: book4,
-    publishedDate: '2024-08-04'
+    id: 2,
+    title: "Can't Hurt Me",
+    author: 'David Goggins',
+    cover: hoImage,
+    publishedDate: '2023-05-15',
+    pdf: cannotHurtPdf,
   },
   {
-    id: 5,
-    title: 'To Kill a Mockingbird',
-    author: 'Harper Lee',
-    cover: book5,
-    publishedDate: '2024-08-04'
+    id: 2,
+    title: "Can't Hurt Me",
+    author: 'David Goggins',
+    cover: hoImage,
+    publishedDate: '2023-05-15',
+    pdf: cannotHurtPdf,
   },
 ];
 
-// Sample data for suggested authors
-const authors = [
-  {
-    id: 1,
-    name: 'J.K. Rowling',
-    image: author1,
-    title: 'Author'
-  },
-  {
-    id: 2,
-    name: 'George Orwell',
-    image: author2,
-    title: 'Author'
-  },
+const recommendedBooks = [
   {
     id: 3,
-    name: 'Aldous Huxley',
-    image: author3,
-    title: 'Author'
+    title: 'The Subtle Art Of Not Giving A F*ck',
+    author: 'Mark Manson',
+    cover: subImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
   },
   {
     id: 4,
-    name: 'F. Scott Fitzgerald',
-    image: author4,
-    title: 'Author'
+    title: 'The Psychology of Money',
+    author: 'Morgan Housel',
+    cover: moImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 3,
+    title: 'The Subtle Art Of Not Giving A F*ck',
+    author: 'Mark Manson',
+    cover: subImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 3,
+    title: 'The Subtle Art Of Not Giving A F*ck',
+    author: 'Mark Manson',
+    cover: subImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 3,
+    title: 'The Subtle Art Of Not Giving A F*ck',
+    author: 'Mark Manson',
+    cover: subImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+];
+
+const topPicks = [
+  {
+    id: 5,
+    title: 'Who Will Cry When You Die',
+    author: 'Robin Sharma',
+    cover: dieImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
   },
   {
     id: 5,
-    name: 'Harper Lee',
-    image: author5,
-    title: 'Author'
+    title: 'Who Will Cry When You Die',
+    author: 'Robin Sharma',
+    cover: dieImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 5,
+    title: 'Who Will Cry When You Die',
+    author: 'Robin Sharma',
+    cover: dieImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 5,
+    title: 'Who Will Cry When You Die',
+    author: 'Robin Sharma',
+    cover: dieImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
+  },
+  {
+    id: 5,
+    title: 'Who Will Cry When You Die',
+    author: 'Robin Sharma',
+    cover: dieImage,
+    publishedDate: '2022-01-01',
+    pdf: atomicPdf, // Replace with the actual PDF
   },
 ];
 
 const EbooksPage = () => {
-  const navigate = useNavigate();
-
-  const handleReadClick = (bookId) => {
-    navigate(`/ebook/${bookId}`);
+  const handleReadClick = (pdf) => {
+    window.location.href = pdf; // Open the PDF in the same tab
   };
 
   return (
     <div className="ebook-page">
       <div className="page-content">
+        
         {/* Popular eBooks Section */}
         <section className="books-section popular-books">
           <h2 className="section-title">Popular eBooks</h2>
           <div className="books-grid">
-            {books.map((book) => (
-              <div key={book.id} className="e-book-card" onClick={() => handleReadClick(book.id)}>
+            {popularBooks.map((book) => (
+              <div key={book.id} className="e-book-card">
                 <div className="e-book-cover-container">
                   <img src={book.cover} alt={book.title} className="e-book-cover" />
                 </div>
                 <div className="e-book-details">
                   <h3 className="e-book-title">{book.title}</h3>
                   <span className="e-book-author">{book.author}</span>
-                  <div className="e-book-label">Free eBook</div>
+                  <span className="e-book-published-date">Published on: {book.publishedDate}</span>
+                  <button className="e-read-button" onClick={() => handleReadClick(book.pdf)}>Read Now</button>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Featured eBooks Section */}
-        <section className="books-section featured-books">
-          <h2 className="section-title">Featured eBooks</h2>
+        {/* Recommended Books Section */}
+        <section className="books-section recommended-books">
+          <h2 className="section-title">Recommended Books</h2>
           <div className="books-grid">
-            {books.slice(0, 5).map((book) => (
-              <div key={book.id} className="e-book-card" onClick={() => handleReadClick(book.id)}>
+            {recommendedBooks.map((book) => (
+              <div key={book.id} className="e-book-card">
                 <div className="e-book-cover-container">
                   <img src={book.cover} alt={book.title} className="e-book-cover" />
                 </div>
                 <div className="e-book-details">
                   <h3 className="e-book-title">{book.title}</h3>
                   <span className="e-book-author">{book.author}</span>
-                  <div className="e-book-label">Free eBook</div>
+                  <span className="e-book-published-date">Published on: {book.publishedDate}</span>
+                  <button className="e-read-button" onClick={() => handleReadClick(book.pdf)}>Read Now</button>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Suggested Authors Section */}
-        <section className="suggested-authors-section">
-          <h2 className="section-title">Suggested Authors</h2>
-          <div className="suggested-authors-grid">
-            {authors.map((author) => (
-              <div key={author.id} className="author-card">
-                <div className="author-image-container">
-                  <img src={author.image} alt={author.name} className="author-image" />
+        {/* Top Picks Section */}
+        <section className="books-section top-picks">
+          <h2 className="section-title">Top Picks</h2>
+          <div className="books-grid">
+            {topPicks.map((book) => (
+              <div key={book.id} className="e-book-card">
+                <div className="e-book-cover-container">
+                  <img src={book.cover} alt={book.title} className="e-book-cover" />
                 </div>
-                <h3 className="author-name">{author.name}</h3>
-                <span className="author-title">{author.title}</span>
+                <div className="e-book-details">
+                  <h3 className="e-book-title">{book.title}</h3>
+                  <span className="e-book-author">{book.author}</span>
+                  <span className="e-book-published-date">Published on: {book.publishedDate}</span>
+                  <button className="e-read-button" onClick={() => handleReadClick(book.pdf)}>Read Now</button>
+                </div>
               </div>
             ))}
           </div>
         </section>
+
       </div>
     </div>
   );

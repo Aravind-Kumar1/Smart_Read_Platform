@@ -1,21 +1,21 @@
 /* General Section Styling */
 .audio-books-section {
-  padding: 60px 20px;
-  background-color: #F8F8F8;
+  padding: 50px 20px;
+  background-color: white;
   text-align: center;
 }
 
 /* Heading Styling */
 .audio-books-heading {
-  font-size: 36px;
-  color: #333333;
+  font-size: 32px; /* Slightly smaller heading */
+  color: #003060; /* Darker color for contrast */
   margin-bottom: 12px;
 }
 
 /* Tagline Styling */
 .audio-books-tagline {
-  font-size: 20px;
-  color: #666666;
+  font-size: 18px;
+  color: #003060;
   margin-bottom: 40px;
 }
 

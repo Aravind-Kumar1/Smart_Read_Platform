@@ -1,0 +1,178 @@
+/* General Section Styling */
+.r-related-books {
+    padding: 60px 10px;
+    text-align: left; /* Align text to the left */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: r-fadeInUp 1s ease-out forwards;
+  }
+  
+  /* Header Styling for Heading */
+  .r-related-books-heading {
+    font-size: 32px;
+    color: #173B45;
+    margin-bottom: 40px; /* Adjusted margin for spacing */
+  }
+  
+  /* Grid Styling */
+  .r-related-books-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Card Styling */
+  .r-book-card {
+    background: transparent; /* Removed background color */
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 220px;
+    text-align: center;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: r-staggeredFadeIn 0.6s ease-out forwards;
+    cursor: pointer; /* Indicate that the entire card is clickable */
+  }
+  
+  .r-book-card:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  
+  .r-book-card:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  
+  .r-book-card:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  
+  .r-book-card:nth-child(4) {
+    animation-delay: 0.8s;
+  }
+  
+  .r-book-card:nth-child(5) {
+    animation-delay: 1s;
+  }
+  
+  .r-book-card:hover {
+    transform: rotateY(10deg) rotateX(10deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Cover Container */
+  .r-book-cover-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .r-book-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 6px;
+  }
+  
+  .r-book-card:hover .r-book-cover {
+    transform: scale(1.1);
+  }
+  
+  /* Book Details */
+  .r-book-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  
+  /* Book Title Styling */
+  .r-book-title {
+    font-size: 18px;
+    color: #173B45;
+    margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with ellipsis */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: 200px; /* Ensure the width is set to handle ellipsis */
+  }
+  
+  /* Author Info Styling */
+  .r-author-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+  
+  .r-author-info span {
+    color: #666666; /* Standard color for "Written by" */
+  }
+  
+  .r-author-info span.r-author-name {
+    color: #003060; /* Highlight author name */
+    font-weight: bold; /* Make the author name stand out */
+    margin-left: 5px; /* Space between "Written by" and author name */
+  }
+  
+  /* Published Date Styling */
+  .r-published-date {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 12px;
+  }
+  
+  /* Read Button Styling */
+  .r-read-button {
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #FF5100;
+    text-decoration: none;
+    border: 1px solid #FF5100;
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    margin-top: 12px;
+    cursor: pointer; /* Indicate that the button is clickable */
+  }
+  
+  .r-read-button:hover {
+    background-color: #E64500;
+    color: #FFFFFF;
+  }
+  
+  /* Animations */
+  
+  /* Fade-in for Section */
+  @keyframes r-fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Staggered Load Animation for Cards */
+  @keyframes r-staggeredFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

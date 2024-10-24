@@ -1,66 +1,117 @@
-import React, { useState } from 'react';
-import './SignUpPage.css'; // Import the SignUpPage CSS
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
-import signUpImage from '../../assets/signup.jpg'; // Import the signup image
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { auth, db } from "../firebase/firebase"; // Adjust the import based on your file structure
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import './SignUpPage.css';
 
-const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+function SignUpPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    // Validate password: minimum 8 characters and at least one special character
+    const passwordRegex = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError("Password must be at least 8 characters long and include at least one special character.");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
+    try {
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user; // Get the user object
+
+      // Store user details in Firestore
+      await setDoc(doc(db, "Users", user.uid), {
+        email: user.email,
+        firstName: fname,
+        lastName: lname,
+        photo: "" // Placeholder for user photo or can be set to a default value
+      });
+
+      // Navigate to the login page
+      navigate("/login"); // Redirect to the login page
+      toast.success("User Registered Successfully!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+    }
   };
 
   return (
-    <div className="signup-page">
-      <div className="signup-container">
-        <div className="signup-form">
-          <h1>Join Us</h1>
-          <p>Already have an account? <a href="/login" className="create-account">Log In</a></p>
-          <p className="quote-text">"Start your journey with us—where every story begins."</p>
-          <form>
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" placeholder="Enter your email address" />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" placeholder="Choose a username" />
-            </div>
-
-            <div className="input-group password-group">
-              <label htmlFor="password">Password</label>
-              <div className="password-wrapper">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  placeholder="Create a password"
-                />
-                <span className="toggle-password" onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <input type="password" id="confirm-password" placeholder="Confirm your password" />
-            </div>
-
-            <div className="button-container">
-              <button type="submit" className="signup-button">Sign Up</button>
-            </div>
-          </form>
-          <div className="quote">
-            <p>"A new chapter begins with every page you turn."</p>
-          </div>
+    <div className="signup-container">
+      <form onSubmit={handleRegister}>
+        <h3>Start Your Journey!</h3>
+        <div className="mb-3">
+          <label>First Name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="First Name"
+            onChange={(e) => setFname(e.target.value)}
+            required
+          />
         </div>
-        <div className="signup-image">
-          <img src={signUpImage} alt="Join Us Background" />
+
+        <div className="mb-3">
+          <label>Last Name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Last Name"
+            onChange={(e) => setLname(e.target.value)}
+            required
+          />
         </div>
-      </div>
+
+        <div className="mb-3">
+          <label>Email Address</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          {passwordError && <div className="error-message">{passwordError}</div>}
+        </div>
+
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Sign Up
+          </button>
+        </div>
+
+        <p className="forgot-password text-right">
+          Already registered? <a href="/login">Login</a>
+        </p>
+      </form>
     </div>
   );
-};
+}
 
 export default SignUpPage;

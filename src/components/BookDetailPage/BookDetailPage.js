@@ -1,129 +1,171 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './BookDetailPage.css';
-import shettyImage from '../../assets/shetty.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
 import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';   
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.entry';
+import atomicPdf from '../../images/atomic.pdf'; // Import your PDF file
+import cannot from '../../images/cannot_hurt.pdf';
+import RelatedBooks from './RelatedBooks'; // Import the RelatedBooks component
+import BookSummary from './BookSummary'; // Import the BookSummary component
 
-// Import PDF files as modules
-import atomicPdf from '../../images/atomic.pdf';
-
+// Sample book data
 const books = [
   {
     id: 1,
     title: 'Atomic Habits',
     author: 'James Clear',
-    cover: shettyImage,
-    publishedDate: '2022-01-01',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    description: 'An Easy & Proven Way to Build Good Habits & Break Bad Ones.',
-    summary: 'Summary: This book dives into the science of habits.',
     pdf: atomicPdf,
+    summaryVideo: 'https://www.youtube.com/embed/9cKp6u0p0O8', // Replace with your actual YouTube video link
+    summaryText: 'In this book, James Clear lays out a framework for improving your habits every day. He emphasizes that small, incremental changes can lead to significant improvements over time.',
   },
   {
     id: 2,
     title: "Can't Hurt Me",
     author: 'David Goggins',
-    cover: shettyImage,
-    publishedDate: '2023-05-15',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    description: 'Master Your Mind and Defy the Odds.',
-    summary: 'Summary: Goggins shares his extraordinary life story.',
+    pdf: cannot,
+    summaryVideo: 'https://www.youtube.com/embed/9cKp6u0p0O8', // Replace with your actual YouTube video link
+    summaryText: 'In this book, James Clear lays out a framework for improving your habits every day. He emphasizes that small, incremental changes can lead to significant improvements over time.',
+  },
+  {
+    id: 3,
+    title: 'Atomic Habits',
+    author: 'James Clear',
     pdf: atomicPdf,
+    summaryVideo: 'https://www.youtube.com/embed/9cKp6u0p0O8', // Replace with your actual YouTube video link
+    summaryText: 'In this book, James Clear lays out a framework for improving your habits every day. He emphasizes that small, incremental changes can lead to significant improvements over time.',
+  },
+  {
+    id: 4,
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    pdf: atomicPdf,
+    summaryVideo: 'https://www.youtube.com/embed/9cKp6u0p0O8', // Replace with your actual YouTube video link
+    summaryText: 'In this book, James Clear lays out a framework for improving your habits every day. He emphasizes that small, incremental changes can lead to significant improvements over time.',
+  },
+  {
+    id: 5,
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    pdf: atomicPdf,
+    summaryVideo: 'https://www.youtube.com/embed/9cKp6u0p0O8', // Replace with your actual YouTube video link
+    summaryText: 'In this book, James Clear lays out a framework for improving your habits every day. He emphasizes that small, incremental changes can lead to significant improvements over time.',
   },
 ];
 
-const videoSources = {
-  1: 'https://www.youtube.com/embed/11ElXK_QMnA?si=JbQrlBRPxISrCHVn',
-  2: 'https://www.youtube.com/embed/VzzU2uF2R-U?si=xTeSkBQp8OqJoEVL',
-};
-
 const BookDetailPage = () => {
   const { id } = useParams();
-  const book = books.find(book => book.id === parseInt(id, 10));
+  const book = books.find((book) => book.id === parseInt(id, 10));
 
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isPdfVisible, setIsPdfVisible] = useState(false); // State to track PDF visibility
+  const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [language, setLanguage] = useState('English'); // Default language
+  const [notes, setNotes] = useState(''); // State to hold notes
+  const [userId] = useState("currentUserId"); // Replace with actual user ID logic
+
+  // Fetch existing notes from backend when the component mounts
+  useEffect(() => {
+    if (book) { // Check if book is defined before making the API call
+      const fetchNotes = async () => {
+        try {
+          const response = await axios.get(`/api/notes/${userId}/${book.id}`);
+          if (response.data) {
+            setNotes(response.data.notes);
+          }
+        } catch (error) {
+          console.error("Error fetching notes:", error);
+        }
+      };
+      
+      fetchNotes(); // Call fetchNotes on component mount
+    }
+  }, [userId, book]); // Dependency array to re-run effect when userId or book changes
+
+  // Save notes to backend
+  const saveNotes = async () => {
+    try {
+      await axios.post('/api/notes', {
+        userId,
+        bookId: book.id,
+        notes,
+      });
+      alert('Notes saved successfully');
+    } catch (error) {
+      console.error("Error saving notes:", error);
+    }
+  };
 
   if (!book) {
     return <div className="book-not-found">Book not found</div>;
   }
 
-  const handleFavoriteClick = () => {
-    setIsFavorite(prevState => !prevState);
-  };
-
-  const handleReadNowClick = () => {
-    window.open(book.pdf, '_blank'); // Open the PDF in a new tab
-  };
-
-  const videoSrc = videoSources[book.id];
-
-  // Set the worker source locally
+  // Set the worker source for PDF.js
   pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   return (
     <div className="book-detail-container">
-      <h1 className="book-detail-heading">E-Book</h1>
-      <div className="book-detail-content">
-        <div className="book-detail-image">
-          <div className="book-cover-box">
-            <img src={book.cover} alt={book.title} className="book-cover-img" />
-            <FontAwesomeIcon
-              icon={isFavorite ? solidHeart : regularHeart}
-              className={`favorite-icon ${isFavorite ? 'filled' : 'empty'}`}
-              onClick={handleFavoriteClick}
-            />
-          </div>
+      {/* Book Title and Language Selector Section */}
+      <header className="book-header">
+        <div className="book-info">
+          <h1 className="book-title">Title: {book.title}</h1>
         </div>
-        <div className="book-detail-info">
-          <h1 className="book-title">{book.title}</h1>
-          <div className="book-meta">
-            <p className="book-author">by {book.author}</p>
-            <p className="book-published-date">Published Date: {book.publishedDate}</p>
-            <p className="book-genre">Genre: {book.genre}</p>
-            <p className="book-languages">Languages: {book.languages}</p>
-            <p className="book-price">Price: {book.price}</p>
-          </div>
-          <div className="book-actions">
-            {book.pdf && (
-              <>
-                <button onClick={handleReadNowClick} className="read-button">Read Now</button>
-                <a href={book.pdf} download className="download-button">Download PDF</a>
-              </>
-            )}
-          </div>
+        <div className="language-selector">
+          <label htmlFor="language">Read in:</label>
+          <select
+            id="language"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="language-dropdown"
+          >
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+          </select>
         </div>
-        <div className="youtube-video">
-          <iframe
-            src={videoSrc}
-            title="Book Video"
-            frameBorder="0"
-            allowFullScreen
-            width="100%"
-            height="315"
-          />
-        </div>
-      </div>
-      {isPdfVisible && (
-        <div className="pdf-viewer-container">
+      </header>
+
+      {/* Directly show the book reading mode */}
+      <div className="reading-mode">
+        <div className="pdf-viewer">
           <Worker workerUrl={pdfWorker}>
             <Viewer fileUrl={book.pdf} plugins={[defaultLayoutPluginInstance]} />
           </Worker>
         </div>
-      )}
+        <div className="notes-section">
+          {/* Notes Button */}
+          <button onClick={() => setIsNotesOpen((prev) => !prev)} className="notes-button">
+            {isNotesOpen ? 'Close Notes' : 'Open Notes'}
+          </button>
+
+          {/* Notes Drawer */}
+          {isNotesOpen && (
+            <div className="notes-drawer">
+              <div className="notes-header">
+                <h2>Untitled Notes</h2>
+                <button className="save-button" onClick={saveNotes}>Save</button>
+              </div>
+              <textarea
+                className="notes-textarea"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)} // Update state on change
+                placeholder="Start taking notes..."
+              ></textarea>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Book Summary Section */}
+      <BookSummary videoUrl={book.summaryVideo} summaryText={book.summaryText} />
+
+      {/* Related Books Section */}
+      <section className="related-books-section">
+        <RelatedBooks />
+      </section>
     </div>
   );
 };

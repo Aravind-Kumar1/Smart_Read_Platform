@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { AuthProvider } from './Authentication/AuthContext'; // Adjust the path as necessary
 import './App.css';
 import Header from './components/HomePage/Header/Header';
 import HeroSection from './components/HomePage/HeroSection/HeroSection';
@@ -11,65 +12,72 @@ import Footer from './components/Footer/Footer';
 import BookDetailPage from './components/BookDetailPage/BookDetailPage';
 import EBooksPage from './pages/EBooksPage/EBooksPage';
 import AudiobooksPage from './pages/AudiobooksPage/AudiobooksPage';
+import AudioBookDetailPage from './components/AudioBooks/AudioBookDetailPage';
 import LoginPage from './Authentication/LoginPage/LoginPage';
 import SignUpPage from './Authentication/SignUpPage/SignUpPage';
 import NoteTaking from './components/NoteTaking/NoteTaking';
-import ClipboardTool from './components/pdfFeatures/Clipboard/ClipboardTool';  // Importing new components
-import NoteTakingPdfViewer from './components/pdfFeatures/Notebooks/NoteTakingPdfViewer';  // Importing new components
+import ClipboardTool from './components/pdfFeatures/Clipboard/ClipboardTool';
+import NoteTakingPdfViewer from './components/pdfFeatures/Notebooks/NoteTakingPdfViewer';
 import BookmarkPdfViewer from './components/pdfFeatures/Bookmarks/BookmarkPdfViewer';
-import 'react-quill/dist/quill.snow.css';
+import FAQ from './components/faq/faq';
+import CategoryPage from './components/BookCategories/CategoryPage';
 
-  // Importing new components
-
-// Component to scroll to the top on route change
 const ScrollToTop = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [pathname]);
 
   return null;
 };
 
-// Layout Component to manage common elements like Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
+  const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
     <>
-      {/* Only show the Header and Footer on pages other than login and signup */}
-      {(location.pathname !== '/login' && location.pathname !== '/signup') && <Header />}
+      {!hideHeaderFooter && <Header />}
       <main>{children}</main>
-      {(location.pathname !== '/login' && location.pathname !== '/signup') && <Footer />}
+      {!hideHeaderFooter && <Footer />}
     </>
   );
 };
 
+const HomePage = () => (
+  <>
+    <HeroSection />
+    <BookCategories />
+    <FeaturedBooks />
+    <AudioBooksSection />
+    <FAQ />
+    <Testimonials />
+  </>
+);
+
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={
-          <Layout>
-            <HeroSection />
-            <BookCategories />
-            <FeaturedBooks />
-            <AudioBooksSection />
-            <Testimonials />
-          </Layout>
-        } />
-        <Route path="/book/:id" element={<Layout><BookDetailPage /></Layout>} />
-        <Route path="/ebooks" element={<Layout><EBooksPage /></Layout>} />
-        <Route path="/audiobooks" element={<Layout><AudiobooksPage /></Layout>} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/note-taking/:id" element={<Layout><NoteTaking /></Layout>} />
-        <Route path="/clipboard" element={<Layout><ClipboardTool /></Layout>} />  {/* New routes */}
-        <Route path="/note-taking-pdf" element={<Layout><NoteTakingPdfViewer /></Layout>} />  {/* New routes */}
-        <Route path="/bookmarks" element={<Layout><BookmarkPdfViewer /></Layout>} />  {/* New routes */}
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          {/* Define your routes */}
+          <Route path="/" element={<Layout><HomePage /></Layout>} />
+          <Route path="/audiobooks" element={<Layout><AudiobooksPage /></Layout>} />
+          <Route path="/audiobook/:id" element={<Layout><AudioBookDetailPage /></Layout>} />
+          <Route path="/book/:id" element={<Layout><BookDetailPage /></Layout>} />
+          <Route path="/ebooks" element={<Layout><EBooksPage /></Layout>} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/note-taking/:id" element={<Layout><NoteTaking /></Layout>} />
+          <Route path="/clipboard" element={<Layout><ClipboardTool /></Layout>} />
+          <Route path="/note-taking-pdf" element={<Layout><NoteTakingPdfViewer /></Layout>} />
+          <Route path="/bookmarks" element={<Layout><BookmarkPdfViewer /></Layout>} />
+          <Route path="/category/:name" element={<Layout><CategoryPage /></Layout>} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

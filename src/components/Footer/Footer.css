@@ -1,7 +1,71 @@
 .footer {
-    padding: 20px;
-    text-align: center;
-    background-color: #EAE2D5;
-    font-size: 14px;
-  }
-  
+  background-color: #003060; /* Dark blue background */
+  color: #ffffff; /* White text color */
+  padding: 40px 20px; /* Padding for the footer */
+  text-align: left; /* Align text to the left */
+}
+
+.footer-container {
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space between columns */
+  max-width: 1200px; /* Maximum width */
+  margin: auto; /* Center the footer */
+  flex-wrap: wrap; /* Wrap items if necessary */
+}
+
+.footer-links,
+.footer-info,
+.footer-social {
+  flex: 1; /* Equal flex grow */
+  min-width: 250px; /* Minimum width for each section */
+  margin: 20px; /* Margin around each section */
+}
+
+.footer-heading {
+  font-size: 1.5em; /* Font size for headings */
+  margin-bottom: 15px; /* Space below headings */
+}
+
+.footer-links ul {
+  list-style-type: none; /* Remove default list style */
+  padding: 0; /* Remove padding */
+}
+
+.footer-links li {
+  margin-bottom: 10px; /* Space between links */
+}
+
+.footer-links a,
+.footer-info a {
+  color: #ffffff; /* White link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.footer-links a:hover,
+.footer-info a:hover {
+  color: #ff5100; /* Change color on hover */
+}
+
+.social-icons {
+  display: flex; /* Flexbox for social icons */
+  gap: 15px; /* Space between icons */
+}
+
+.social-icon {
+  color: #ffffff; /* White icon color */
+  text-decoration: none; /* Remove underline */
+  padding: 10px; /* Padding for clickable area */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 81, 0, 0.3); /* Light hover effect */
+}
+
+.footer-bottom {
+  text-align: center; /* Centered bottom text */
+  margin-top: 20px; /* Margin above bottom text */
+  font-size: 0.9em; /* Smaller font size */
+}

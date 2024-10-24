@@ -1,0 +1,59 @@
+.faq-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    text-align: center; /* Center-align text */
+  }
+  
+  .faq-heading {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2b2b2b;
+    margin-bottom: 30px; /* Space below heading */
+  }
+  
+  .faq-container {
+    max-width: 800px; /* Limit max width */
+    margin: 0 auto; /* Center the container */
+    text-align: left; /* Left-align text */
+  }
+  
+  .faq-item {
+    background-color: #ffffff; /* White background for each item */
+    border: 1px solid #dddddd; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 15px; /* Space between items */
+    transition: box-shadow 0.3s; /* Smooth shadow transition */
+  }
+  
+  .faq-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
+  }
+  
+  .faq-question {
+    padding: 20px; /* Padding around question */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Center vertically */
+  }
+  
+  .faq-question h3 {
+    font-size: 18px; /* Font size for question */
+    color: #2b2b2b; /* Dark text color */
+  }
+  
+  .arrow {
+    font-size: 18px; /* Font size for arrow */
+    transition: transform 0.3s; /* Smooth arrow rotation */
+  }
+  
+  .arrow.open {
+    transform: rotate(180deg); /* Rotate arrow when open */
+  }
+  
+  .faq-answer {
+    padding: 20px; /* Padding around answer */
+    background-color: #f1f1f1; /* Light background for answer */
+    border-top: 1px solid #dddddd; /* Border above answer */
+  }
+  

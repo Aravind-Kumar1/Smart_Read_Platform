@@ -1,58 +1,99 @@
-import React, { useState } from 'react';
-import './LoginPage.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
-import logImage from '../../assets/login.jpg'; // Import the image
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { auth } from "../firebase/firebase";
+import { toast } from "react-toastify";
+import SignInWithGoogle from "../SignInWIthGoogle/SignGoogle"; 
+import { useNavigate } from "react-router-dom"; 
+import './LoginPage.css';    
 
-const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+// Importing the logo image
+import logo from '../../assets/smart.png';
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate(); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("User logged in Successfully");
+      navigate("/"); 
+      toast.success("User logged in Successfully", {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+    }
   };
 
+  const handleRegisterNow = () => {
+    navigate("/signup");
+  };
+
+  // Scroll to top when this component is mounted
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-form">
-          <h1>Welcome Back</h1>
-          <p>New to SMARTREAD? <a href="/signup" className="create-account">Create an account</a></p>
-          <p className="quote-text">"Books are now at your fingertips—dive into your next adventure from anywhere."</p>
-          <form>
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" placeholder="Enter your email address" />
-            </div>
-            
-            <div className="input-group password-group">
-              <label htmlFor="password">Password</label>
-              <div className="password-wrapper">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  placeholder="Maybe try 'Open Sesame'?"
-                />
-                <span className="toggle-password" onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-            
-            <a href="/forgot-password" className="forgot-password">Forgot password?</a>
-            
-            <div className="button-container">
-              <button type="submit" className="signin-button">Sign In</button>
-            </div>
-          </form>
-          <div className="quote">
-            <p>"A room without books is like a body without a soul." – Cicero</p>
-          </div>
+    <div className="login-container">
+      <div className="login-content">
+        <img src={logo} alt="SmartRead Logo" className="logo" /> 
+        <h3 className="login-title">Welcome Back to SmartRead!</h3>
+        <p className="login-subtitle">Discover a world of knowledge at your fingertips</p>
+        
+        <div className="google-signin">
+          <SignInWithGoogle />
         </div>
-        <div className="login-image">
-          <img src={logImage} alt="Books Background" /> {/* Use the imported variable here */}
+        
+        <p className="or-continue-text">Or continue with email</p>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="mb-3">
+            <label htmlFor="email" className="input-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="input-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="d-grid">
+            <button type="submit" className="btn btn-primary1">
+              Log In
+            </button>
+          </div>
+        </form>
+        
+        <div className="register-now">
+          <p className="register-text">Don't have an account?</p>
+          <button type="button" className="btn btn-link" onClick={handleRegisterNow}>
+            Register Now
+          </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default LoginPage;

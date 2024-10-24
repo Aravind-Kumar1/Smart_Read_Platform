@@ -1,157 +1,56 @@
-/* General Section Styling */
-.book-categories-section {
-  padding: 35px 20px;
-  background-color: #ffffff;
-  overflow: hidden;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-/* Header Styling for Subheading and Subtagline */
-.categories-header {
+.categories-page {
+  background-color: white; /* Light background */
+  padding: 80px 20px; /* Increased padding for better spacing */
   text-align: center;
-  margin-bottom: 20px;
-  opacity: 0; /* Initial state for animation */
-  transform: translateY(50px); /* Initial position for animation */
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transition for animation */
-}
-
-.animate-header {
-  opacity: 1;
-  transform: translateY(0);
+  font-family: 'Arial', sans-serif; /* Changed font for modern look */
 }
 
 .main-heading {
-  font-size: 32px;
-  color: #003060;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 32px; /* Slightly smaller heading */
+  color: #003060; /* Darker color for contrast */
+  margin-bottom: 15px;
 }
 
 .tagline {
-  font-size: 18px;
-  color: #666666;
-  margin-bottom: 30px;
-  font-weight: 400;
+  font-size: 18px; /* Reduced font size for the tagline */
+  color: #003060;
+  margin-bottom: 40px;
 }
 
-/* Grid Styling */
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  justify-items: center;
-  padding: 0 10px;
-  opacity: 0; /* Initial state for animation */
-  transform: translateY(50px); /* Initial position for animation */
-  transition: opacity 1s ease-out, transform 1s ease-out; /* Transition for animation */
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center align the items */
+  gap: 20px; /* Space between items */
 }
 
-.animate-grid {
-  opacity: 1;
-  transform: translateY(0);
+.category-item {
+  background-color: #f0f4f8; /* Light professional color */
+  border-radius: 12px; /* More rounded corners */
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  padding: 12px 20px; /* Slightly reduced padding */
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #000; /* Dark text color */
+  min-width: 180px; /* Adjusted width */
+  max-width: 280px; /* Adjusted width */
+  justify-content: center; /* Center content horizontally */
 }
 
-/* Card Styling */
-.category-card {
-  position: relative;
-  width: 180px;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
-  cursor: pointer; /* Add pointer cursor */
-  text-decoration: none; /* Remove underline from link */
+.category-item:hover {
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.category-card:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.category-image {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-}
-
-.category-info {
-  padding: 10px;
-  text-align: center;
+.category-icon {
+  font-size: 1.8rem; /* Slightly smaller icon size */
+  margin-right: 10px; /* Adjusted space between icon and text */
+  color: #434444; /* Icon color */
 }
 
 .category-name {
-  font-size: 20px;
-  color: #173B45;
-  margin-bottom: 8px;
-  font-weight: 600;
+  white-space: nowrap; /* Prevent text from wrapping */
+  font-size: 1.2rem; /* Slightly smaller text */
+  font-weight: 500; /* Medium font weight */
+  text-align: center; /* Center the text */
 }
-
-.see-more {
-  font-size: 14px;
-  color: #FF5100;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.see-more svg {
-  margin-left: 5px;
-}
-
-.see-more:hover {
-  color: #e04a00;
-  transform: translateX(5px);
-}
-
-/* Keyframes for Sequential Animation of Cards */
-@keyframes fadeInSequential {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Sequential Animation for Cards */
-.category-card:nth-child(1) {
-  animation: fadeInSequential 0.5s 0.2s forwards;
-}
-
-.category-card:nth-child(2) {
-  animation: fadeInSequential 0.6s 0.3s forwards;
-}
-
-.category-card:nth-child(3) {
-  animation: fadeInSequential 0.7s 0.4s forwards;
-}
-
-.category-card:nth-child(4) {
-  animation: fadeInSequential 0.8s 0.5s forwards;
-}
-
-.category-card:nth-child(5) {
-  animation: fadeInSequential 0.9s 0.6s forwards;
-}
-
-.category-card:nth-child(6) {
-  animation: fadeInSequential 1s 0.7s forwards;
-}
-.category-card:nth-child(7) {
-  animation: fadeInSequential 0.7s 0.4s forwards;
-}
-
-.category-card:nth-child(8) {
-  animation: fadeInSequential 0.8s 0.5s forwards;
-}
-
-.category-card:nth-child(9) {
-  animation: fadeInSequential 0.9s 0.6s forwards;
-}
-
-.category-card:nth-child(10) {
-  animation: fadeInSequential 1s 0.7s forwards;
-}
-
-/* Add more nth-child selectors as needed */

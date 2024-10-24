@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './HeroSection.css';
 import harryImage from '../../../assets/harry.png';
 import howImage from '../../../assets/how.png';
@@ -24,6 +25,7 @@ const books = [
 
 const HeroSection = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate(); // Create navigate function
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -33,6 +35,10 @@ const HeroSection = () => {
     event.preventDefault();
     // Implement search functionality here
     console.log('Searching for:', searchTerm);
+  };
+
+  const handleGetStartedClick = () => {
+    navigate('/login'); // Navigate to Login page
   };
 
   return (
@@ -59,7 +65,7 @@ const HeroSection = () => {
           </div>
         </form>
         <div className="buttons">
-          <button className="cta-button primary">Get Started Now</button>
+          <button className="cta-button primary" onClick={handleGetStartedClick}>Get Started Now</button>
           <button className="cta-button secondary">View Products</button>
         </div>
       </div>

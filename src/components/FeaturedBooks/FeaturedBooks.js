@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FeaturedBooks.css';
 import phyImage from '../../assets/phy.jpg';
@@ -6,47 +6,71 @@ import hoImage from '../../assets/ho.jpg';
 import subImage from '../../assets/sub.jpg';
 import moImage from '../../assets/mo.webp';
 import dieImage from '../../assets/die.jpeg';
+import atomic from '../../assets/Atomic.jpg';
+import david from '../../assets/david.jpg';
 
+
+// Sample data
 const books = [
   {
     id: 1,
     title: 'Atomic Habits',
     author: 'James Clear',
-    cover: phyImage,
-    publishedDate: '2022-01-01'
+    cover: atomic,
+    publishedDate: '2022-01-01',
   },
   {
     id: 2,
     title: "Can't Hurt Me",
     author: 'David Goggins',
-    cover: hoImage,
-    publishedDate: '2023-05-15'
+    cover: david,
+    publishedDate: '2023-05-15',
   },
   {
     id: 3,
     title: 'The Subtle Art Of Not Giving A F*ck',
     author: 'Mark Manson',
     cover: subImage,
-    publishedDate: '2022-01-01'
+    publishedDate: '2022-01-01',
   },
   {
     id: 4,
     title: 'The Psychology of Money',
     author: 'Morgan Housel',
-    cover: moImage,
-    publishedDate: '2022-01-01'
+    cover: phyImage,
+    publishedDate: '2022-01-01',
   },
   {
     id: 5,
     title: 'Who Will Cry When You Die',
     author: 'Robin Sharma',
     cover: dieImage,
-    publishedDate: '2022-01-01'
+    publishedDate: '2022-01-01',
   },
+  
 ];
 
 const FeaturedBooks = () => {
   const navigate = useNavigate();
+
+  // Restore scroll position
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem('featuredBooksScrollPosition');
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition, 10));
+    }
+
+    const handleScroll = () => {
+      sessionStorage.setItem('featuredBooksScrollPosition', window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      sessionStorage.removeItem('featuredBooksScrollPosition'); // Clean up on unmount
+    };
+  }, []);
 
   const handleReadClick = (bookId) => {
     navigate(`/book/${bookId}`);

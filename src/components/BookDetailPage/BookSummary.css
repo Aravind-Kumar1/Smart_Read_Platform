@@ -1,0 +1,43 @@
+.book-summary-container {
+    padding: 20px;
+    margin-top: 60px;
+    background-color: white;
+  }
+  
+  .video-heading {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Aligns items at the start vertically */
+  }
+  
+  .youtube-video {
+    flex: 1; /* Takes up half the available space */
+    margin-right: 20px; /* Adds space between the video and summary */
+  }
+  
+  .youtube-iframe {
+    width: 100%;
+    height: 315px; /* Consistent height */
+  }
+  
+  .summary-text {
+    flex: 1; /* Takes up the remaining half of the space */
+  }
+  
+  .summary-text h2 {
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .summary-text p {
+    font-size: 16px;
+    line-height: 1.5; /* Adds space between lines */
+  }
+  

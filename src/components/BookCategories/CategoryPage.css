@@ -1,0 +1,19 @@
+.category-page-container {
+    padding-top: 50px; /* Add padding to move content down */
+  }
+  
+  .category-title {
+    margin-top: 10px; /* Move the category title down */
+    text-align: center; /* Center the category title */
+  }
+  
+  .books-grid {
+    margin-top: -50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid for books */
+    justify-content: center; /* Center the books horizontally */
+    align-items: center; /* Center the book items vertically */
+    gap: 20px; /* Add space between book cards */
+    padding: 20px;
+  }
+  

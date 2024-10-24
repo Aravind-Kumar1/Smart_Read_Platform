@@ -1,93 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BookCategories.css';
-import { FaArrowRight } from 'react-icons/fa'; // Arrow icon for "See more"
-import subImage from '../../assets/sub.jpg';
-import moImage from '../../assets/mo.webp';
-import shettyImage from '../../assets/shetty.jpg';
-import dieImage from '../../assets/die.jpeg';
+import { FaBook, FaLightbulb, FaBalanceScale, FaBullhorn, FaLeaf, FaHeart, FaUserGraduate, FaGlobe, FaHistory, FaHandsHelping, FaIndustry, FaChartLine, FaRocket, FaPiggyBank, FaThumbsUp, FaCoins } from 'react-icons/fa';
 
 const categories = [
-  { name: 'Young Adult', image: subImage },
-  { name: 'Romance', image: moImage },
-  { name: 'Mystery', image: shettyImage },
-  { name: 'Children\'s', image: dieImage },
-  { name: 'Young Adult', image: subImage },
-  { name: 'Romance', image: moImage },
-  { name: 'Mystery', image: shettyImage },
-  { name: 'Children\'s', image: dieImage },
-  { name: 'Young Adult', image: subImage },
-  { name: 'Romance', image: moImage },
-  // Add more categories as needed
+  { name: 'Popular', icon: <FaBook className="category-icon" />, books: ['The Alchemist', 'Becoming'] },
+  { name: 'Entrepreneurship', icon: <FaRocket className="category-icon" />, books: ['Start with Why', 'The Lean Startup'] },
+  { name: 'Politics', icon: <FaBalanceScale className="category-icon" />, books: ['The Art of War', 'The Prince'] },
+  { name: 'Marketing & Sales', icon: <FaBullhorn className="category-icon" />, books: ['Contagious', 'Influence: The Psychology of Persuasion'] },
+  { name: 'Science', icon: <FaLeaf className="category-icon" />, books: ['Sapiens', 'A Brief History of Time'] },
+  { name: 'Health & Nutrition', icon: <FaHeart className="category-icon" />, books: ['The Body Keeps the Score', 'How Not to Die'] },
+  { name: 'Personal Development', icon: <FaUserGraduate className="category-icon" />, books: ['Atomic Habits', 'The 7 Habits of Highly Effective People'] },
+  { name: 'Economics', icon: <FaGlobe className="category-icon" />, books: ['Freakonomics', 'The Wealth of Nations'] },
+  { name: 'History', icon: <FaHistory className="category-icon" />, books: ['Guns, Germs, and Steel', 'The Diary of a Young Girl'] },
+  { name: 'Communication Skills', icon: <FaHandsHelping className="category-icon" />, books: ['Crucial Conversations', 'How to Win Friends and Influence People'] },
+  { name: 'Corporate Culture', icon: <FaIndustry className="category-icon" />, books: ['Good to Great', 'The Five Dysfunctions of a Team'] },
+  { name: 'Management & Leadership', icon: <FaChartLine className="category-icon" />, books: ['Leaders Eat Last', 'The 5 Levels of Leadership'] },
+  { name: 'Motivation & Inspiration', icon: <FaThumbsUp className="category-icon" />, books: ['You Are a Badass', 'The Power of Now'] },
+  { name: 'Money & Investments', icon: <FaPiggyBank className="category-icon" />, books: ['Rich Dad Poor Dad', 'The Intelligent Investor'] },
+  { name: 'Wealth Management', icon: <FaCoins className="category-icon" />, books: ['The Millionaire Next Door', 'Think and Grow Rich'] },
 ];
 
 const BookCategories = () => {
-  const headerRef = useRef(null);
-  const gridRef = useRef(null);
+  const navigate = useNavigate(); // Use useNavigate for routing
 
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1 // Adjust this value based on when you want the animation to trigger
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (entry.target === headerRef.current) {
-            headerRef.current.classList.add('animate-header');
-          }
-          if (entry.target === gridRef.current) {
-            gridRef.current.classList.add('animate-grid');
-            const cards = gridRef.current.querySelectorAll('.category-card');
-            cards.forEach((card, index) => {
-              card.style.animation = `fadeInSequential 0.5s ${index * 0.2}s forwards`;
-            });
-          }
-        }
-      });
-    }, observerOptions);
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    if (gridRef.current) {
-      observer.observe(gridRef.current);
-    }
-
-    return () => {
-      if (headerRef.current) {
-        observer.unobserve(headerRef.current);
-      }
-      if (gridRef.current) {
-        observer.unobserve(gridRef.current);
-      }
-    };
-  }, []);
+  const handleCategoryClick = (categoryName) => {
+    navigate(`/category/${categoryName.toLowerCase()}`); // Navigate to the specific category page
+  };
 
   return (
-    <section className="book-categories-section">
-      <div ref={headerRef} className="categories-header">
-        <h2 className="main-heading">Explore Our Book Categories</h2>
-        <p className="tagline">Find the perfect book for every occasion.</p>
-      </div>
-      <div ref={gridRef} className="categories-grid">
+    <div className="categories-page">
+      <h2 className="main-heading">Explore Our Book Categories</h2>
+      <p className="tagline">Find the perfect book for every occasion.</p>
+      <div className="categories-list">
         {categories.map((category, index) => (
-          <a 
+          <div 
             key={index} 
-            href={`/genres/${category.name.toLowerCase()}`} 
-            className="category-card"
+            className="category-item flex flex-row items-center gap-4 rounded-lg shadow-lg transition-transform hover:scale-105 cursor-pointer p-4"
+            onClick={() => handleCategoryClick(category.name)} // Update to navigate
           >
-            <img src={category.image} alt={category.name} className="category-image" />
-            <div className="category-info">
-              <h3 className="category-name">{category.name}</h3>
-              <span className="see-more">
-                See more <FaArrowRight />
-              </span>
-            </div>
-          </a>
+            {category.icon}
+            <div className="category-name font-medium">{category.name}</div>
+          </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

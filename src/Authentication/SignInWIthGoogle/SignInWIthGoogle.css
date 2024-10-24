@@ -1,0 +1,44 @@
+/* Container for Google Sign-In button */
+.google-signin-btn {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    padding: 10px 10px; /* Add padding for better spacing */
+    background: linear-gradient(45deg, #003060, #005080); /* Smooth gradient effect */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Curved corners for a modern look */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    color: #FFFFFF; /* White text color */
+    font-size: 16px; /* Font size for the text */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0 4px 15px rgba(0, 48, 96, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover effect */
+.google-signin-btn:hover {
+    background: linear-gradient(45deg, #002040, #003060); /* Darker gradient on hover */
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 48, 96, 0.4); /* Stronger shadow on hover */
+}
+
+/* Google icon */
+.google-signin-btn img {
+    margin-right: 12px; /* Space between icon and text */
+    width: 25px; /* Icon size */
+    height: 25px; /* Icon size */
+}
+
+/* Text styling */
+.google-text {
+    font-size: 16px; /* Font size for the text */
+    font-weight: bold; /* Bold text */
+}
+
+/* Continue with text */
+.continue-p {
+    margin: 15px 0; /* Margin above and below */
+    font-size: 14px; /* Font size for the continue text */
+    color: #555; /* Lighter text color */
+    text-align: center; /* Center the text */
+}

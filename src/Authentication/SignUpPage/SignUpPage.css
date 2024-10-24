@@ -1,173 +1,101 @@
-/* Global styles to ensure no conflict */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background: white; /* Gradient background for the whole page */
-}
-
-/* Specific styles for the sign-up page */
-.signup-page {
+/* General styles for the signup container */
+.signup-container {
+  margin-top: -120px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: white; /* Gradient background specific to signup page */
+   /* Full viewport height */
+  background-color: #ffffff; /* Plain white background */
+  padding: 0;
+  margin: 0;
+  overflow: hidden; /* Prevent any scroll */
 }
 
-.signup-container {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 1200px; /* Increased width for larger screens */
-  height: auto; /* Height adjusts based on content */
-  max-height: 800px; /* Optional max-height for very large content */
-  background-color: #fff; /* Background color specific to signup container */
-  border-radius: 12px;
-  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); */
-  overflow: hidden;
-  position: relative;
+/* Form styling - white card */
+form {
+  background-color: #ffffff; /* Solid white form (card) */
+  padding: 40px; /* Ample padding for the form */
+  border-radius: 12px; /* Rounded corners for card */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for card effect */
+  width: 100%; /* Full width for smaller screens */
+  max-width: 500px; /* Max width for card */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.signup-form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px; /* Padding inside the form */
-  background: white; /* Soft background specific to signup form */
-  box-sizing: border-box;
-}
-
-.signup-form h1 {
-  margin-bottom: 20px;
-  font-size: 36px;
-  color: #333;
-  font-weight: 700;
+/* Heading styles */
+h3 {
   text-align: center;
+  color: #003060; /* Dark blue for heading */
+  margin-bottom: 25px; /* Space below heading */
+  font-size: 28px; /* Larger heading size */
+  font-weight: 700; /* Bold font */
+  letter-spacing: 1px;
 }
 
-.signup-form p {
-  margin-bottom: 20px;
-  color: #666;
-  font-size: 16px;
-  text-align: center;
-}
-
-.signup-form a {
-  color: #FF5100;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.signup-form a:hover {
-  text-decoration: underline;
-}
-
-.signup-form label {
-  display: block;
-  margin-bottom: 10px;
-  color: #333;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 12px 16px;
+/* Styling for input fields */
+input.form-control {
+  width: 100%; /* Full width */
+  padding: 15px;
+  margin-bottom: 25px; /* Space between inputs */
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
+  background-color: #f8f8f8;
 }
 
-.input-group input:focus {
-  border-color: #FF5100;
+/* Input focus effect */
+input.form-control:focus {
+  border-color: #FF5100; /* Orange border on focus */
   outline: none;
 }
 
-.password-wrapper {
-  position: relative;
-}
-
-.password-wrapper input {
-  width: calc(100% - 40px);
-}
-
-.toggle-password {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 18px;
-  color: #333;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.signup-button {
-  width: 100%;
-  max-width: 350px;
-  padding: 12px;
-  background: #FF5100;
+/* Button styles */
+.btn-primary {
+  background-color: #FF5100;
   color: white;
+  padding: 15px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Full width button */
+  font-weight: bold;
 }
 
-.signup-button:hover {
-  background: #e44900;
-  transform: scale(1.03);
+/* Button hover effect */
+.btn-primary:hover {
+  background-color: #e04500; /* Darker shade on hover */
 }
 
-.quote {
-  margin-top: 20px;
+/* Forgot password link */
+.forgot-password {
   text-align: center;
-  font-size: 16px;
-  color: #333;
-  font-style: italic;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #003060; /* Dark blue for consistency */
 }
 
-/* Image styles */
-.signup-image {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 0 12px 12px 0;
-  overflow: hidden;
+/* Link styles */
+a {
+  color: #FF5100;
+  text-decoration: none;
 }
 
-.signup-image img {
-  width: 100%;
-  height: auto;
-  max-height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+a:hover {
+  text-decoration: underline;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .signup-container {
-    flex-direction: column; /* Stack the image and form vertically on small screens */
-    height: auto; /* Remove fixed height for smaller screens */
+  form {
+    padding: 20px; /* Adjust padding for smaller screens */
   }
 
-  .signup-image {
-    display: none; /* Hide image on very small screens */
+  h3 {
+    font-size: 24px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
   }
 }
