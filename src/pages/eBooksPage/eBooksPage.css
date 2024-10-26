@@ -1,6 +1,8 @@
 /* eBooks Page Styles */
 .ebook-page {
   padding: 100px;
+  margin-top: -40px;
+  background-color: white;
 }
 
 /* General Section Styling */
@@ -11,7 +13,7 @@
 .section-title {
   font-size: 32px;
   color: #173B45;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   text-align: left; /* Align section titles to the left */
 }
 

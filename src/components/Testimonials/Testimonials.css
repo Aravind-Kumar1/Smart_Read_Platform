@@ -1,79 +1,122 @@
-.testimonials-section {
-  padding: 40px 20px;
-  background-color: #f9f9f9; /* Light background color */
+/* styles.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.testimonials-header {
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
   text-align: center;
-  margin-bottom: 20px;
+  padding: 2rem 0;
 }
 
-.testimonials-heading {
-  font-size: 24px; /* Adjust font size as needed */
-  line-height: 1.5; /* Adjust line height for readability */
-  color: #003060; /* Header text color */
+h1 {
+  margin: 2rem 0;
+  font-size: 32px; /* Slightly smaller heading */
+  color: #003060;/* Adjust color as needed */
 }
 
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 20px; /* Space between cards */
+.testimonial-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .testimonial-card {
-  padding: 20px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  transition: transform 0.3s; /* Transition for hover effect */
-  border-left: 5px solid #006064; /* Darker blue left border */
-  position: relative; /* To position any absolute elements if needed */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 30%;
+  margin: 1rem; /* Space between cards */
+  transition: transform 0.3s; /* Animation effect */
 }
 
-.testimonial-card:hover {
-  transform: scale(1.05); /* Hover effect */
+
+.category-label {
+ 
+  padding: 0.5rem;
+  width: 200px;
+  border-radius: 0px;
+  font-size: 1.2rem;
+  color: black;
+  font-weight: bold;
 }
 
-.testimonial-title {
-  font-size: 18px; /* Title font size */
-  font-weight: bold; /* Bold title */
-  color: #003060; /* Title color */
+.testimonial-image {
+  width: 150px; /* Adjust width as needed for book images */
+  height: 200px; /* Adjust height as needed for book images */
+  border-radius: 5px; /* Optionally adjust border radius for a more book-like appearance */
+  margin: 1rem 0;
+  object-fit: cover; /* Ensures the image covers the space without distortion */
+}
+
+.rating {
+  color: #f4b400;
+  font-size: 1.5rem; /* Slightly larger font for better visibility */
 }
 
 .testimonial-text {
-  font-size: 16px; /* Text font size */
-  color: #666666; /* Text color */
-  margin: 10px 0; /* Space around the text */
+  font-size: 1.05rem;
+  margin-top: 1rem;
+  line-height: 1.6;
 }
 
-.testimonial-name {
-  margin-top: 10px; /* Space above name */
-  font-style: italic; /* Italic for the name */
-  color: #999999; /* Name color */
+.stat-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
 }
 
-/* Different background colors for each card */
-.leaders {
-  background-color: #e0f7fa; /* Light Cyan */
+/* Specific styles for Leaders, Upskillers, Lifelong Learners */
+.leader {
+  background: #e7d1da; /* Light green background for Leaders */
+  width: 30%; /* Adjust width as needed */
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  transition: background 0.3s; /* Animation for hover effect */
 }
 
-.lifelong-learners {
-  background-color: #ffe0b2; /* Light Orange */
+.upskiller {
+  background: #ffeeba; /* Light yellow background for Upskillers */
+  width: 35%; /* Adjust width as needed */
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  transition: background 0.3s; /* Animation for hover effect */
 }
 
-.innovators {
-  background-color: #fce4ec; /* Light Pink */
+.lifelong {
+  background: #cfe2ff; /* Light blue background for Lifelong Learners */
+  width: 25%; /* Adjust width as needed */
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  transition: background 0.3s; /* Animation for hover effect */
 }
 
-.students {
-  background-color: #d1c4e9; /* Light Purple */
+.stat {
+  background: #f0f0f0;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  width: 25%; /* Consistent width for stats */
+  transition: background 0.3s; /* Animation for hover effect */
 }
 
-/* Animation keyframes for sequential fade-in effect */
-@keyframes fadeInSequential {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.stat:hover {
+  background: #e3f6f5; /* Change background on hover */
+}
+
+/* Making text bold in specific classes */
+.bold-text {
+  font-weight: bold;
 }

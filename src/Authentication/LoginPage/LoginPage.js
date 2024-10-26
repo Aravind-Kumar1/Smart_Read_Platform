@@ -1,12 +1,12 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase/firebase";
-import { toast } from "react-toastify";
-import SignInWithGoogle from "../SignInWIthGoogle/SignGoogle"; 
+import { toast, ToastContainer } from "react-toastify"; 
+import SignGoogle from '../SignInWIthGoogle/SignGoogle'; 
 import { useNavigate } from "react-router-dom"; 
 import './LoginPage.css';    
+import 'react-toastify/dist/ReactToastify.css';
 
-// Importing the logo image
 import logo from '../../assets/smart.png';
 
 function LoginPage() {
@@ -20,12 +20,12 @@ function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in Successfully");
       navigate("/"); 
-      toast.success("User logged in Successfully", {
+      toast.success("You have logged in successfully!", {
         position: "top-center",
       });
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message, {
+      toast.error("Login failed: " + error.message, {
         position: "bottom-center",
       });
     }
@@ -35,7 +35,6 @@ function LoginPage() {
     navigate("/signup");
   };
 
-  // Scroll to top when this component is mounted
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -48,7 +47,7 @@ function LoginPage() {
         <p className="login-subtitle">Discover a world of knowledge at your fingertips</p>
         
         <div className="google-signin">
-          <SignInWithGoogle />
+          <SignGoogle />
         </div>
         
         <p className="or-continue-text">Or continue with email</p>
@@ -92,8 +91,9 @@ function LoginPage() {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
 
-export default LoginPage;
+export default LoginPage;  

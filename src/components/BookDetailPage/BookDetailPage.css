@@ -1,6 +1,6 @@
 /* Overall container */
 .book-detail-container {
-  margin-top: -33px;
+  margin-top: -90px;
   display: flex;
   flex-direction: column;
   padding: 70px;
@@ -15,8 +15,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
-  padding-bottom: 5px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  padding-bottom: 0px;
   border-bottom: 2px solid #eaeaea;
 }
 
@@ -28,9 +29,11 @@
   font-size: 28px;
   color: #002d62;
   font-weight: bold;
+  margin-top:70px;
 }
 
 .language-selector {
+  margin-top: 40px;
   margin-left: 20px;
 }
 
@@ -47,7 +50,7 @@
 /* Reading and Notes Layout */
 .reading-mode {
   display: flex;
-  height: 75vh;
+  height: 70vh;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -123,13 +126,24 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   align-self: flex-end; /* Align the button to the right */
   margin-bottom: 10px;
 }
 
 .save-button:hover {
   background-color: #218838;
+}
+.not{
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  align-self: flex-end; /* Align the button to the right */
+  margin-bottom: 10px;
 }
 
 /* Responsive Design */
@@ -151,4 +165,42 @@
   .notes-textarea {
     height: 40vh;
   }
+}
+/* BookDetailPage.css */
+
+.toast-success {
+  background-color: #4caf50; /* Green color for success */
+  color: white; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding around the text */
+}
+
+.toast-body {
+  font-size: 16px; /* Larger font size */
+  font-weight: bold; /* Bold text */
+}
+
+/* Add a transition effect */
+.toast {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.pdf-viewer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.notes-section {
+  margin-top: 20px;
+}
+
+.notes-drawer {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.saved-message {
+  color: green;
+  font-weight: bold;
 }

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+// FeaturedBooks.js
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FeaturedBooks.css';
 import phyImage from '../../assets/phy.jpg';
-import hoImage from '../../assets/ho.jpg';
 import subImage from '../../assets/sub.jpg';
-import moImage from '../../assets/mo.webp';
-import dieImage from '../../assets/die.jpeg';
 import atomic from '../../assets/Atomic.jpg';
 import david from '../../assets/david.jpg';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 
 // Sample data
 const books = [
@@ -42,16 +43,16 @@ const books = [
   },
   {
     id: 5,
-    title: 'Who Will Cry When You Die',
-    author: 'Robin Sharma',
-    cover: dieImage,
-    publishedDate: '2022-01-01',
+    title: 'Unfu*k Yourself',
+    author: 'Gary John Bishop',
+    cover: require('../../assets/unfuck.jpg'), // Adjust path if necessary
+    publishedDate: '2016-07-22',
   },
-  
 ];
 
 const FeaturedBooks = () => {
   const navigate = useNavigate();
+  const [favoriteBooks, setFavoriteBooks] = useState({});
 
   // Restore scroll position
   useEffect(() => {
@@ -76,15 +77,39 @@ const FeaturedBooks = () => {
     navigate(`/book/${bookId}`);
   };
 
+  const toggleFavorite = (bookId) => {
+    setFavoriteBooks((prev) => {
+      const isFavorite = !prev[bookId];
+      if (isFavorite) {
+        toast.success('Successfully added to your wishlist!'); // Toast message for adding
+      } else {
+        toast.error('Successfully removed from your wishlist!'); // Toast message for removing
+      }
+      return {
+        ...prev,
+        [bookId]: isFavorite,
+      };
+    });
+  };
+
   return (
     <section className="f-featured-books">
+      <ToastContainer /> {/* Render ToastContainer for notifications */}
       <h2 className="f-featured-books-subheading">We've got what everyone's reading</h2>
       <p className="f-featured-books-subtagline">Best sellers. New releases. That story you've been waiting for.</p>
       <div className="f-featured-books-grid">
         {books.map((book) => (
-          <div key={book.id} className="f-book-card" onClick={() => handleReadClick(book.id)}>
+          <div key={book.id} className="f-book-card">
             <div className="f-book-cover-container">
               <img src={book.cover} alt={book.title} className="f-book-cover" />
+              <FontAwesomeIcon
+                icon={favoriteBooks[book.id] ? solidHeart : regularHeart}
+                className={`favorite-icon ${favoriteBooks[book.id] ? 'filled' : 'empty'}`}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent click from triggering the card click
+                  toggleFavorite(book.id);
+                }}
+              />
             </div>
             <div className="f-book-details">
               <h3 className="f-book-title">{book.title}</h3>
@@ -93,7 +118,7 @@ const FeaturedBooks = () => {
                 <span className="f-author-name">{book.author}</span>
               </div>
               <span className="f-published-date">{book.publishedDate}</span>
-              <button className="f-read-button">Read</button>
+              <button className="f-read-button" onClick={() => handleReadClick(book.id)}>Read</button>
             </div>
           </div>
         ))}

@@ -6,6 +6,7 @@ import biImage from '../../assets/bible.jpeg';
 import phyImage from '../../assets/phy.jpg';
 import hoImage from '../../assets/ho.jpg';
 import dieImage from '../../assets/die.jpeg';
+import '../BookDetailPage/BookDetailPage'
 
 // Sample data
 const audiobooks = [

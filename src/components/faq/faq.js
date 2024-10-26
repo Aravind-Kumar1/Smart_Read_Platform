@@ -22,18 +22,8 @@ const faqData = [
     question: "Can I listen to audiobooks on SmartRead?",
     answer: "Yes! SmartRead provides a selection of audiobooks that you can listen to directly on our platform, making it easy to enjoy books on the go."
   },
-  {
-    question: "How do I create a favorites list?",
-    answer: "Once logged in, you can easily add books to your favorites list by clicking the 'Add to Favorites' button on each book's detail page."
-  },
-  {
-    question: "Is there a mobile app for SmartRead?",
-    answer: "Currently, SmartRead is accessible through web browsers. We are working on developing a mobile app for a better user experience."
-  },
-  {
-    question: "What should I do if I encounter a problem?",
-    answer: "If you encounter any issues, feel free to contact our Customer Support team through the 'Help' section on our website."
-  }
+  
+
 ];
 
 const FAQ = () => {
@@ -45,7 +35,7 @@ const FAQ = () => {
 
   return (
     <section className="faq-section">
-      <h2 className="faq-heading">Frequently Asked Questions</h2>
+      <h2 className="faq-heading">All The A's to Your Q's</h2>
       <div className="faq-container">
         {faqData.map((item, index) => (
           <div key={index} className="faq-item">

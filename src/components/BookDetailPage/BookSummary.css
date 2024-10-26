@@ -1,43 +1,65 @@
 .book-summary-container {
-    padding: 20px;
-    margin-top: 60px;
-    background-color: white;
-  }
-  
-  .video-heading {
-    text-align: left;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
+  padding: 30px;
+  margin-top: 60px;
+  background-color: #f8f9fa; /* Light background for better contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.video-heading {
+  margin-top: 5px;
+  margin-left: 20px;
+  text-align: left;
+  font-size: 28px; /* Increased font size */
+  margin-bottom: 20px;
+  color: #003060; /* Color for the heading */
+}
+
+.summary-layout {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column; /* Stack vertically on smaller screens */
+  justify-content: flex-start;
+  align-items: center; /* Center align for better layout */
+}
+
+@media (min-width: 768px) {
   .summary-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Aligns items at the start vertically */
+    flex-direction: row; /* Horizontal layout for larger screens */
   }
-  
-  .youtube-video {
-    flex: 1; /* Takes up half the available space */
-    margin-right: 20px; /* Adds space between the video and summary */
-  }
-  
-  .youtube-iframe {
-    width: 100%;
-    height: 315px; /* Consistent height */
-  }
-  
-  .summary-text {
-    flex: 1; /* Takes up the remaining half of the space */
-  }
-  
-  .summary-text h2 {
-    font-size: 20px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-  }
-  
-  .summary-text p {
-    font-size: 16px;
-    line-height: 1.5; /* Adds space between lines */
-  }
-  
+}
+
+.youtube-video {
+  flex: 1;
+  max-width: 560px; /* Set a max width for the video */
+  margin: 0 20px; /* Add margin to the sides */
+}
+
+.youtube-iframe {
+  width: 100%;
+  height: 315px;
+  border-radius: 8px; /* Rounded corners for the video */
+}
+
+.summary-text {
+  flex: 1;
+  max-width: 600px; /* Set a max width for the text */
+  margin: 0 20px; /* Add margin to the sides */
+  padding: 20px;
+  background-color: #ffffff; /* White background for the summary */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.summary-text h2 {
+  font-size: 24px; /* Increased font size */
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #003060; /* Color for the heading */
+}
+
+.summary-text p {
+  font-size: 16px;
+  line-height: 1.6; /* Increased line-height for readability */
+  color: #333333; /* Darker text color for better contrast */
+}

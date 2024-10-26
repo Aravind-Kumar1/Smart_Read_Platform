@@ -10,7 +10,7 @@ import AudioBooksSection from './components/AudioBooks/AudioBooksSection';
 import Testimonials from './components/Testimonials/Testimonials';
 import Footer from './components/Footer/Footer';
 import BookDetailPage from './components/BookDetailPage/BookDetailPage';
-import EBooksPage from './pages/EBooksPage/EBooksPage';
+import EBooksPage from './pages/eBooksPage/eBooksPage';
 import AudiobooksPage from './pages/AudiobooksPage/AudiobooksPage';
 import AudioBookDetailPage from './components/AudioBooks/AudioBookDetailPage';
 import LoginPage from './Authentication/LoginPage/LoginPage';
@@ -21,6 +21,9 @@ import NoteTakingPdfViewer from './components/pdfFeatures/Notebooks/NoteTakingPd
 import BookmarkPdfViewer from './components/pdfFeatures/Bookmarks/BookmarkPdfViewer';
 import FAQ from './components/faq/faq';
 import CategoryPage from './components/BookCategories/CategoryPage';
+import Favorites from './components/Favorites/Favorites'; // Import Favorites component
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -51,8 +54,8 @@ const HomePage = () => (
     <BookCategories />
     <FeaturedBooks />
     <AudioBooksSection />
-    <FAQ />
     <Testimonials />
+    <FAQ />
   </>
 );
 
@@ -75,6 +78,8 @@ function App() {
           <Route path="/note-taking-pdf" element={<Layout><NoteTakingPdfViewer /></Layout>} />
           <Route path="/bookmarks" element={<Layout><BookmarkPdfViewer /></Layout>} />
           <Route path="/category/:name" element={<Layout><CategoryPage /></Layout>} />
+          <Route path="/favorites" element={<Layout><Favorites /></Layout>} /> {/* Route path should match NavLink */}
+          {/* Add route for favorites */}
         </Routes>
       </Router>
     </AuthProvider>

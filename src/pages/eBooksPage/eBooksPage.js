@@ -1,5 +1,5 @@
 import React from 'react';
-import './EBooksPage.css';
+import './eBooksPage.css';
 
 // Importing book cover images
 import phyImage from '../../assets/phy.jpg'; // Replace with your actual path

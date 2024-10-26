@@ -10,8 +10,8 @@
 
 /* Header Styling for Subheading and Subtagline */
 .f-featured-books-subheading {
-  font-size: 32px;
-  color: #173B45;
+  font-size: 32px; /* Slightly smaller heading */
+  color: #003060;
   margin-bottom: 10px;
 }
 
@@ -45,7 +45,6 @@
   opacity: 0;
   transform: translateY(30px);
   animation: f-staggeredFadeIn 0.6s ease-out forwards;
-  cursor: pointer; /* Indicate that the entire card is clickable */
 }
 
 .f-book-card:nth-child(1) {
@@ -88,9 +87,9 @@
   border-radius: 6px;
 }
 
-.f-book-card:hover .f-book-cover {
+/* .f-book-card:hover .f-book-cover {
   transform: scale(1.1);
-}
+} */
 
 /* Book Details */
 .f-book-details {
@@ -183,4 +182,18 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+.favorite-icon {
+  position: absolute;
+  top: 0px; /* Adjusted position */
+  right: 10px; /* Adjusted position */
+  font-size: 28px; /* Increased size */
+  color: #B0B0B0; /* Default color */
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.favorite-icon.filled {
+  color: #FF0000; /* Filled color */
+  transform: scale(1.2); /* Slightly larger when filled */
 }

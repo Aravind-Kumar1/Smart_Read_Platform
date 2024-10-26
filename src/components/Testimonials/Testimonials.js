@@ -1,79 +1,76 @@
-import React, { useEffect, useRef } from 'react';
-import './Testimonials.css'; // Import the CSS for styling and animations
-
-// Define the testimonials array
-const testimonials = [
-  {
-    type: 'leaders',
-    name: 'A SmartRead user',
-    title: 'Most CEOs read a book a week',
-    text: 'Many use programs like this to acquire key concepts that help them keep a fresh perspective, honing vision, strategy, and action.',
-  },
-  {
-    type: 'lifelong-learners',
-    name: 'Lifelong learners',
-    title: 'This is simply the coolest app that exists',
-    text: 'It’s much nicer to spend your time learning new knowledge, rather than spending hours browsing social media.',
-  },
-  {
-    type: 'innovators',
-    name: 'Tech Enthusiast',
-    title: 'An incredible way to learn',
-    text: 'This platform has changed the way I consume knowledge, making it fun and easy to stay informed.',
-  },
-  {
-    type: 'students',
-    name: 'A Student User',
-    title: 'A game changer for my studies!',
-    text: 'SmartRead has helped me grasp complex concepts quickly and effectively. I love the audio summaries for on-the-go learning!',
-  },
-];
+import React from 'react';
+import './Testimonials.css'; // Ensure styles are imported
+import leader from '../../assets/leader.webp';
+import upskiller from '../../assets/upskiller.webp';
+import learn from '../../assets/learner.webp';
 
 const Testimonials = () => {
-  const gridRef = useRef(null);
-
-  useEffect(() => {
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const cards = gridRef.current.querySelectorAll('.testimonial-card');
-          cards.forEach((card, index) => {
-            card.style.animation = `fadeInSequential 0.5s ${index * 0.2}s forwards`;
-          });
+    const testimonials = [
+        {
+            category: 'Leaders',
+            image: leader, // Replace with your image path
+            rating: '★★★★★',
+            text: (
+                <>
+                    <strong>Most CEOs read a book a week.</strong> Many use programs like this to acquire key concepts that help them keep a fresh perspective, helping hone <strong>vision, strategy, and action.</strong>
+                </>
+            ),
+            className: 'leader' // Assigning class for specific styling
+        },
+        {
+            category: 'Upskillers',
+            image: upskiller, // Replace with your image path
+            rating: '★★★★★',
+            text: (
+                <>
+                    <strong>Life changing.</strong> The concept of being able to grasp a book's main point in such a short time truly opens multiple <strong>opportunities</strong> to grow <strong>every area</strong> of your life at a <strong>faster rate</strong>.
+                </>
+            ),
+            className: 'upskiller' // Assigning class for specific styling
+        },
+        {
+            category: 'Lifelong Learners',
+            image: learn, // Replace with your image path
+            rating: '★★★★★',
+            text: (
+                <>
+                    This is simply the <strong>coolest app</strong> that exists. Deserved full credit. It's much nicer to spend your time learning new <strong>knowledge</strong>, rather than spending hours browsing <strong>social media</strong>.
+                </>
+            ),
+            className: 'lifelong' // Assigning class for specific styling
         }
-      });
-    }, observerOptions);
+    ];
 
-    if (gridRef.current) {
-      observer.observe(gridRef.current);
-    }
+    return (
+        <div className="container">
+            <h1>Growing with Smart-Read</h1>
+            <p style={{ fontSize: '18px', marginTop :'-20px', color: '#003060' }}>
+                Nurturing Knowledge, One Page at a Time.
+            </p>
+            <div className="testimonial-section">
+                {testimonials.map((testimonial, index) => (
+                    <div className={`testimonial-card ${testimonial.className}`} key={index}>
+                        <div className="category-label">{testimonial.category}</div>
+                        <img src={testimonial.image} alt={`${testimonial.category} Image`} className="testimonial-image" />
+                        <p className="rating">{testimonial.rating}</p>
+                        <p className="testimonial-text">{testimonial.text}</p>
+                    </div>
+                ))}
+            </div>
 
-    return () => {
-      if (gridRef.current) {
-        observer.unobserve(gridRef.current);
-      }
-    };
-  }, []);
-
-  return (
-    <section className="testimonials-section">
-      <div className="testimonials-header">
-        <h2 className="testimonials-heading">
-          Discover a world of knowledge—read, listen, <br /> and grow with SmartRead!
-        </h2>
-      </div>
-      <div ref={gridRef} className="testimonial-grid">
-        {testimonials.map((testimonial, index) => (
-          <div key={index} className={`testimonial-card ${testimonial.type}`}>
-            <h3 className="testimonial-title">{testimonial.title}</h3>
-            <p className="testimonial-text">{testimonial.text}</p>
-            <p className="testimonial-name">— {testimonial.name}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+            <div className="stat-section">
+                <div className="stat">
+                    <p>95%</p>
+                </div>
+                <div className="stat">
+                    <p>91%</p>
+                </div>
+                <div className="stat">
+                    <p>87%</p>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default Testimonials;

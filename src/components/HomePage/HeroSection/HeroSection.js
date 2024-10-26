@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import './HeroSection.css';
 import harryImage from '../../../assets/harry.png';
 import howImage from '../../../assets/how.png';
@@ -20,54 +21,35 @@ const books = [
   { cover: howImage },
   { cover: dieImage },
   { cover: obamaImage },
-  // Add more books as needed
 ];
 
 const HeroSection = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate(); // Create navigate function
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    // Implement search functionality here
-    console.log('Searching for:', searchTerm);
-  };
-
-  const handleGetStartedClick = () => {
-    navigate('/login'); // Navigate to Login page
-  };
-
   return (
     <section className="hero-section">
       <div className="text-content">
         <h1 className="hero-heading">
-          Discover Your Next Great Read
+          Learn <br />
+          <span className="light-text">something new</span> <br />
+          every day
         </h1>
-        <p className="quote">
-          "One who reads lives a thousand lives before he dies. The man who never reads lives only one." — George R.R. Martin
-        </p>
-        <form className="search-form" onSubmit={handleSearchSubmit}>
-          <div className="search-bar">
-            <button type="submit" className="search-button">🔍</button>
-            <input
-              type="text"
-              placeholder="Search for books..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            {searchTerm && (
-              <button type="button" className="clear-button" onClick={() => setSearchTerm('')}>❌</button>
-            )}
-          </div>
-        </form>
-        <div className="buttons">
-          <button className="cta-button primary" onClick={handleGetStartedClick}>Get Started Now</button>
-          <button className="cta-button secondary">View Products</button>
+        <div className="quote-container">
+          <p className="aligned-quote">
+            Get the key ideas from the top <span className="ellipse blue">books</span>,
+          </p>
+          <p className="aligned-quote">
+          <span className="ellipse orange">podcasts</span> , and <span className="ellipse pink">audiobooks</span> with the 
+          </p>
+          <p className="aligned-quote">
+            <span className="highlight green">Smart-Read</span>.
+          </p>
         </div>
+
+        <div className="buttons">
+          <a href="https://github.com" className="github-button">
+            <FontAwesomeIcon icon={faGithub} /> GitHub
+          </a>
+        </div>
+
       </div>
       <div className="books-display">
         {books.map((book, index) => (
