@@ -69,3 +69,8 @@
   margin-top: 20px; /* Margin above bottom text */
   font-size: 0.9em; /* Smaller font size */
 }
+
+/* Additional margin for spacing in footer-info */
+.footer-info p {
+  margin: 10px 0; /* Add margin above and below each contact line */
+}

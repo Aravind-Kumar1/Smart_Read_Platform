@@ -18,8 +18,8 @@ const Footer = () => {
         <div className="footer-info">
           <h4 className="footer-heading">Contact Us</h4>
           <p>Email: <a href="mailto:info@smartread.com">info@smartread.com</a></p>
-          <p>Phone: <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
-          <p>Location: 123 Book St, Library City, CA 90210</p>
+          <p>Phone: <a href="tel:+15551234567">+91 8897552876</a></p>
+          <p>Location: Jubliee Hills, Film Nagar, 500033</p>
         </div>
         <div className="footer-social">
           <h4 className="footer-heading">Follow Us</h4>

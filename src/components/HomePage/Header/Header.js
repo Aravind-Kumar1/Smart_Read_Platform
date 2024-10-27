@@ -1,37 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../../../Authentication/AuthContext'; // Adjust the path as necessary
-import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import default styles
+import { useAuth } from '../../../Authentication/AuthContext'; 
+import { toast, ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 import './Header.css';
+
+// Importing profile icon for default display
+import { FaUserCircle } from 'react-icons/fa'; // FontAwesome profile icon (install if not already)
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State to control dropdown visibility
-  const navigate = useNavigate(); // Initialize navigate
-  const dropdownRef = useRef(null); // Create a reference for the dropdown
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   // Logout handler
   const handleLogout = async () => {
-    await logout(); // Call logout function
-    toast.success('Successfully logged out!'); // Show toast message
-    navigate('/login'); // Navigate to the login page after logging out
+    await logout();
+    toast.success('Successfully logged out!');
+    navigate('/login');
   };
 
-  // Toggle dropdown visibility
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
     };
-
-    // Attach event listener
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -46,33 +45,18 @@ const Header = () => {
         </div>
         <nav>
           <ul>
-            <li>
-              <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ebooks" className={({ isActive }) => (isActive ? 'active' : '')}>
-                E-Book
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/audiobooks" className={({ isActive }) => (isActive ? 'active' : '')}>
-                Audio Book
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/favorites" className={({ isActive }) => (isActive ? 'active' : '')}>
-                Favorites
-              </NavLink>
-            </li>
+            <li><NavLink to="/" end>Home</NavLink></li>
+            <li><NavLink to="/ebooks">E-Book</NavLink></li>
+            <li><NavLink to="/audiobooks">Audio Book</NavLink></li>
+            <li><NavLink to="/favorites">Favorites</NavLink></li>
           </ul>
         </nav>
         <div className="auth-buttons">
           {user ? (
             <>
               <div className="profile-section" onClick={toggleDropdown}>
-                <img src={user.photoURL} alt="Profile" className="profile-image" />
+                <FaUserCircle className="profile-icon" /> {/* Display the profile icon */}
+                <span className="user-email">{user.email}</span> {/* Display user's email */}
               </div>
               {dropdownOpen && (
                 <div className="dropdown-content" ref={dropdownRef}>
@@ -89,7 +73,7 @@ const Header = () => {
           )}
         </div>
       </header>
-      <ToastContainer /> {/* Include ToastContainer for displaying toasts */}
+      <ToastContainer />
     </>
   );
 };

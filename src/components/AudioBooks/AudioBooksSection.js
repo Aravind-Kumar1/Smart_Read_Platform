@@ -7,10 +7,17 @@ import phyImage from '../../assets/phy.jpg';
 import hoImage from '../../assets/ho.jpg';
 import dieImage from '../../assets/die.jpeg';
 import '../BookDetailPage/BookDetailPage'
+import book1 from '../../assets/bama.png';
 
 // Sample data
 const audiobooks = [
-  { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', cover: biImage },
+  {
+    id: 1,
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    cover: book1,
+    publishedDate: '2022-01-01',
+  },
   { id: 2, title: '1984', author: 'George Orwell', cover: phyImage },
   { id: 3, title: 'Brave New World', author: 'Aldous Huxley', cover: hoImage },
   { id: 4, title: 'The Catcher in the Rye', author: 'J.D. Salinger', cover: dieImage },

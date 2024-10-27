@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './Authentication/AuthContext'; // Adjust the path as necessary
@@ -8,6 +9,7 @@ import BookCategories from './components/BookCategories/BookCategories';
 import FeaturedBooks from './components/FeaturedBooks/FeaturedBooks';
 import AudioBooksSection from './components/AudioBooks/AudioBooksSection';
 import Testimonials from './components/Testimonials/Testimonials';
+import GrowWhereverYouAre from './components/GrowWhereverYouAre/GrowWhereverYouAre';
 import Footer from './components/Footer/Footer';
 import BookDetailPage from './components/BookDetailPage/BookDetailPage';
 import EBooksPage from './pages/eBooksPage/eBooksPage';
@@ -21,10 +23,11 @@ import NoteTakingPdfViewer from './components/pdfFeatures/Notebooks/NoteTakingPd
 import BookmarkPdfViewer from './components/pdfFeatures/Bookmarks/BookmarkPdfViewer';
 import FAQ from './components/faq/faq';
 import CategoryPage from './components/BookCategories/CategoryPage';
-import Favorites from './components/Favorites/Favorites'; // Import Favorites component
-import { ToastContainer, toast } from 'react-toastify';
+import Favorites from './components/Favorites/Favorites';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Scroll to top on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -35,6 +38,7 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Layout component to handle Header and Footer visibility
 const Layout = ({ children }) => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/login' || location.pathname === '/signup';
@@ -48,6 +52,7 @@ const Layout = ({ children }) => {
   );
 };
 
+// Home page with main sections
 const HomePage = () => (
   <>
     <HeroSection />
@@ -55,17 +60,19 @@ const HomePage = () => (
     <FeaturedBooks />
     <AudioBooksSection />
     <Testimonials />
+    <GrowWhereverYouAre />
     <FAQ />
   </>
 );
 
+// Main App component
 function App() {
   return (
     <AuthProvider>
       <Router>
         <ScrollToTop />
+        <ToastContainer />
         <Routes>
-          {/* Define your routes */}
           <Route path="/" element={<Layout><HomePage /></Layout>} />
           <Route path="/audiobooks" element={<Layout><AudiobooksPage /></Layout>} />
           <Route path="/audiobook/:id" element={<Layout><AudioBookDetailPage /></Layout>} />
@@ -78,8 +85,7 @@ function App() {
           <Route path="/note-taking-pdf" element={<Layout><NoteTakingPdfViewer /></Layout>} />
           <Route path="/bookmarks" element={<Layout><BookmarkPdfViewer /></Layout>} />
           <Route path="/category/:name" element={<Layout><CategoryPage /></Layout>} />
-          <Route path="/favorites" element={<Layout><Favorites /></Layout>} /> {/* Route path should match NavLink */}
-          {/* Add route for favorites */}
+          <Route path="/favorites" element={<Layout><Favorites /></Layout>} />
         </Routes>
       </Router>
     </AuthProvider>

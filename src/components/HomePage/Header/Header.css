@@ -6,7 +6,7 @@
   background-color: #FFFFFF;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000; 
-  padding: 10px 30px; 
+  padding: 20px 30px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,17 +117,22 @@
 /* Styles for profile section and dropdown */
 .profile-section {
   display: flex;
-  align-items: center; 
-  cursor: pointer; /* Change cursor to indicate clickable */
+  align-items: center;
+  cursor: pointer;
 }
 
-.profile-image {
-  width: 60px; 
-  height: 60px; 
-  border-radius: 50%; 
-  margin-right: 8px; 
-  object-fit: contain;
+.profile-icon {
+  font-size: 32px; /* Adjust icon size */
+  color: #173B45; /* Match the header color scheme */
+  margin-right: 8px;
 }
+
+.user-email {
+  font-size: 14px;
+  color: #173B45; /* Adjust color to match the theme */
+  margin-right: 10px; /* Space between email and dropdown */
+}
+
 
 .dropdown-content {
   display: block;

@@ -1,99 +1,43 @@
-import React from 'react';
-import './AudiobooksPage.css'; // Make sure this path is correct for your project structure
-import { useNavigate } from 'react-router-dom';
-
-// Import images for books and authors
-import book1 from '../../assets/bama.png';
-import book2 from '../../assets/shetty.jpg';
-import book3 from '../../assets/david.jpg';
-import book4 from '../../assets/harry.png';
-import book5 from '../../assets/how.png';
-
-import author1 from '../../assets/james.jpeg';
-import author2 from '../../assets/james.jpeg';
-import author3 from '../../assets/james.jpeg';
-import author4 from '../../assets/james.jpeg';
-import author5 from '../../assets/james.jpeg';
-
-// Sample data for books
-const books = [
-  {
-    id: 1,
-    title: 'Atomic Habits',
-    author: 'James Clear',
-    cover: book1,
-    publishedDate: '2022-01-01',
-  },
-  {
-    id: 2,
-    title: 'Aravind Kumar',
-    author: 'George Orwell',
-    cover: book2,
-    publishedDate: '2024-08-02',
-  },
-  {
-    id: 3,
-    title: 'Brave New World',
-    author: 'Aldous Huxley',
-    cover: book3,
-    publishedDate: '2024-08-03',
-  },
-  {
-    id: 4,
-    title: 'The Catcher in the Rye',
-    author: 'J.D. Salinger',
-    cover: book4,
-    publishedDate: '2024-08-04',
-  },
-  {
-    id: 5,
-    title: 'To Kill a Mockingbird',
-    author: 'Harper Lee',
-    cover: book5,
-    publishedDate: '2024-08-04',
-  },
-];
-
-// Sample data for suggested authors
-const authors = [
-  {
-    id: 1,
-    name: 'J.K. Rowling',
-    image: author1,
-    title: 'Author',
-  },
-  {
-    id: 2,
-    name: 'George Orwell',
-    image: author2,
-    title: 'Author',
-  },
-  {
-    id: 3,
-    name: 'Aldous Huxley',
-    image: author3,
-    title: 'Author',
-  },
-  {
-    id: 4,
-    name: 'F. Scott Fitzgerald',
-    image: author4,
-    title: 'Author',
-  },
-  {
-    id: 5,
-    name: 'Harper Lee',
-    image: author5,
-    title: 'Author',
-  },
-];
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Authentication/firebase/firebase"; // Import Firebase configuration
+import { useNavigate } from "react-router-dom";
+import "./AudiobooksPage.css"; // Ensure the path is correct for your CSS file
 
 const AudiobooksPage = () => {
+  const [popularAudiobooks, setPopularAudiobooks] = useState([]);
+  const [featuredAudiobooks, setFeaturedAudiobooks] = useState([]);
+  const [authors, setAuthors] = useState([]); // State for suggested authors
   const navigate = useNavigate();
 
-  const handleListenClick = (bookId) => {
-    // Navigate to the audiobook detail page
-    navigate(`/audiobook/${bookId}`);
+  useEffect(() => {
+    const fetchAudiobooks = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "audio_book_data"));
+        const audiobooksData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+        // Split data into categories
+        const popular = audiobooksData.filter((audiobook) => audiobook.category === "Popular");
+        const featured = audiobooksData.filter((audiobook) => audiobook.category === "Featured");
+
+        setPopularAudiobooks(popular);
+        setFeaturedAudiobooks(featured);
+
+        // For suggested authors (example setup, customize as needed)
+        setAuthors([
+          { id: 1, name: "J.K. Rowling", image: "path/to/image1" },
+          { id: 2, name: "George Orwell", image: "path/to/image2" },
+        ]);
+      } catch (error) {
+        console.error("Error fetching audiobooks:", error);
+      }
+    };
+
+    fetchAudiobooks();
+  }, []);
+
+  const handleListenClick = (audiobookId) => {
+    navigate(`/audiobook/${audiobookId}`); // Navigate to the detail page with the audiobook ID
   };
 
   return (
@@ -103,25 +47,19 @@ const AudiobooksPage = () => {
         <section className="ab-books-section ab-popular-books">
           <h2 className="ab-section-title">Popular Audiobooks</h2>
           <div className="ab-books-grid">
-            {books.map((book) => (
+            {popularAudiobooks.map((audiobook) => (
               <div
-                key={book.id}
+                key={audiobook.id}
                 className="ab-audio-book-card"
-                onClick={() => handleListenClick(book.id)} // On click navigate to the detail page
+                onClick={() => handleListenClick(audiobook.id)} // Pass the audiobook ID
               >
                 <div className="ab-audio-book-cover-container">
-                  <img
-                    src={book.cover}
-                    alt={book.title}
-                    className="ab-audio-book-cover"
-                  />
+                  <img src={audiobook.cover} alt={audiobook.title} className="ab-audio-book-cover" />
                 </div>
                 <div className="ab-audio-book-details">
-                  <h3 className="ab-audio-book-title">{book.title}</h3>
-                  <p className="ab-audio-book-author">{book.author}</p>
-                  <p className="ab-audio-book-published-date">
-                    {book.publishedDate}
-                  </p>
+                  <h3 className="ab-audio-book-title">{audiobook.title}</h3>
+                  <p className="ab-audio-book-author">{audiobook.author}</p>
+                  <p className="ab-audio-book-published-date">Published on: {audiobook.publishedDate}</p>
                 </div>
                 <div className="ab-audio-book-label">Listen Now</div>
               </div>
@@ -129,29 +67,23 @@ const AudiobooksPage = () => {
           </div>
         </section>
 
-        {/* Featured Section  */}
-        <section className="ab-books-section ab-popular-books">
+        {/* Featured Audiobooks Section */}
+        <section className="ab-books-section ab-featured-books">
           <h2 className="ab-section-title">Featured Audiobooks</h2>
           <div className="ab-books-grid">
-            {books.map((book) => (
+            {featuredAudiobooks.map((audiobook) => (
               <div
-                key={book.id}
+                key={audiobook.id}
                 className="ab-audio-book-card"
-                onClick={() => handleListenClick(book.id)} // On click navigate to the detail page
+                onClick={() => handleListenClick(audiobook.id)} // Pass the audiobook ID
               >
                 <div className="ab-audio-book-cover-container">
-                  <img
-                    src={book.cover}
-                    alt={book.title}
-                    className="ab-audio-book-cover"
-                  />
+                  <img src={audiobook.cover} alt={audiobook.title} className="ab-audio-book-cover" />
                 </div>
                 <div className="ab-audio-book-details">
-                  <h3 className="ab-audio-book-title">{book.title}</h3>
-                  <p className="ab-audio-book-author">{book.author}</p>
-                  <p className="ab-audio-book-published-date">
-                    {book.publishedDate}
-                  </p>
+                  <h3 className="ab-audio-book-title">{audiobook.title}</h3>
+                  <p className="ab-audio-book-author">{audiobook.author}</p>
+                  <p className="ab-audio-book-published-date">Published on: {audiobook.publishedDate}</p>
                 </div>
                 <div className="ab-audio-book-label">Listen Now</div>
               </div>
@@ -166,14 +98,10 @@ const AudiobooksPage = () => {
             {authors.map((author) => (
               <div key={author.id} className="author-card">
                 <div className="author-image-container">
-                  <img
-                    src={author.image}
-                    alt={author.name}
-                    className="author-image"
-                  />
+                  <img src={author.image} alt={author.name} className="author-image" />
                 </div>
                 <h3 className="author-name">{author.name}</h3>
-                <p className="author-title">{author.title}</p>
+                <p className="author-title">Author</p>
               </div>
             ))}
           </div>

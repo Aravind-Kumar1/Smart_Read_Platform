@@ -1,6 +1,6 @@
 .categories-page {
   background-color: white; /* Light background */
-  padding: 80px 20px; /* Increased padding for better spacing */
+  padding: 90px 20px; /* Increased padding for better spacing */
   text-align: center;
   font-family: 'Arial', sans-serif; /* Changed font for modern look */
 }
@@ -12,8 +12,8 @@
 }
 
 .tagline {
-  font-size: 20px; /* Reduced font size for the tagline */
-  color: #003060;
+  font-size: 18px;
+  color: #666666;
   margin-bottom: 40px;
 }
 

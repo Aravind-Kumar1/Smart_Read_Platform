@@ -1,6 +1,6 @@
-// FeaturedBooks.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Authentication/AuthContext';
 import './FeaturedBooks.css';
 import phyImage from '../../assets/phy.jpg';
 import subImage from '../../assets/sub.jpg';
@@ -8,10 +8,11 @@ import atomic from '../../assets/Atomic.jpg';
 import david from '../../assets/david.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { db } from '../../Authentication/firebase/firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-// Sample data
 const books = [
   {
     id: 1,
@@ -45,16 +46,16 @@ const books = [
     id: 5,
     title: 'Unfu*k Yourself',
     author: 'Gary John Bishop',
-    cover: require('../../assets/unfuck.jpg'), // Adjust path if necessary
+    cover: require('../../assets/unfuck.jpg'),
     publishedDate: '2016-07-22',
   },
 ];
 
 const FeaturedBooks = () => {
+  const { user } = useAuth(); // Access user information from AuthContext
   const navigate = useNavigate();
   const [favoriteBooks, setFavoriteBooks] = useState({});
 
-  // Restore scroll position
   useEffect(() => {
     const scrollPosition = sessionStorage.getItem('featuredBooksScrollPosition');
     if (scrollPosition) {
@@ -69,32 +70,58 @@ const FeaturedBooks = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      sessionStorage.removeItem('featuredBooksScrollPosition'); // Clean up on unmount
+      sessionStorage.removeItem('featuredBooksScrollPosition');
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      const fetchFavorites = async () => {
+        const docRef = doc(db, 'favorites', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setFavoriteBooks(docSnap.data());
+        }
+      };
+      fetchFavorites();
+    }
+  }, [user]);
 
   const handleReadClick = (bookId) => {
     navigate(`/book/${bookId}`);
   };
 
-  const toggleFavorite = (bookId) => {
-    setFavoriteBooks((prev) => {
-      const isFavorite = !prev[bookId];
-      if (isFavorite) {
-        toast.success('Successfully added to your wishlist!'); // Toast message for adding
+  const toggleFavorite = async (bookId) => {
+    if (!user) {
+      toast.error("Please log in to add to your favorites.");
+      navigate("/login");
+      return;
+    }
+
+    const newFavoriteStatus = !favoriteBooks[bookId];
+    const updatedFavorites = {
+      ...favoriteBooks,
+      [bookId]: newFavoriteStatus,
+    };
+
+    setFavoriteBooks(updatedFavorites);
+
+    try {
+      await setDoc(doc(db, 'favorites', user.uid), updatedFavorites);
+      if (newFavoriteStatus) {
+        toast.success('Added to your wishlist!');
       } else {
-        toast.error('Successfully removed from your wishlist!'); // Toast message for removing
+        toast.error('Removed from your wishlist!');
       }
-      return {
-        ...prev,
-        [bookId]: isFavorite,
-      };
-    });
+    } catch (error) {
+      console.error("Error saving favorite: ", error);
+      toast.error("Failed to update favorite status.");
+    }
   };
 
   return (
     <section className="f-featured-books">
-      <ToastContainer /> {/* Render ToastContainer for notifications */}
+      <ToastContainer />
       <h2 className="f-featured-books-subheading">We've got what everyone's reading</h2>
       <p className="f-featured-books-subtagline">Best sellers. New releases. That story you've been waiting for.</p>
       <div className="f-featured-books-grid">
@@ -106,7 +133,7 @@ const FeaturedBooks = () => {
                 icon={favoriteBooks[book.id] ? solidHeart : regularHeart}
                 className={`favorite-icon ${favoriteBooks[book.id] ? 'filled' : 'empty'}`}
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent click from triggering the card click
+                  e.stopPropagation();
                   toggleFavorite(book.id);
                 }}
               />
