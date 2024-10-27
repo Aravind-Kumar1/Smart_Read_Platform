@@ -1,8 +1,8 @@
 // src/firebase/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage"; // Import Firebase Storage
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDMrJqgvL65UhOeZFaSE__vSXuvTE4qbBQ",
@@ -16,9 +16,22 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase Authentication, Firestore, and Storage
+// Initialize Firebase services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app); // Initialize and export Firebase Storage
+export const storage = getStorage(app);
+
+// Function to get categories with books from Firestore
+export const fetchCategories = async () => {
+  const categoriesCollection = collection(db, "categories");
+  const categoriesSnapshot = await getDocs(categoriesCollection);
+  const categoriesData = {};
+  
+  categoriesSnapshot.forEach(doc => {
+    categoriesData[doc.id] = doc.data().books;
+  });
+  
+  return categoriesData;
+};
 
 export default app;

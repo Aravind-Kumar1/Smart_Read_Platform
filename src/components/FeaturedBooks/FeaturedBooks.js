@@ -13,13 +13,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { db } from '../../Authentication/firebase/firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-const books = [
+// Exported books array so it can be used in other components
+export const books = [
   {
     id: 1,
     title: 'Atomic Habits',
     author: 'James Clear',
     cover: atomic,
     publishedDate: '2022-01-01',
+    type: 'ebook',  // Type added here
   },
   {
     id: 2,
@@ -27,6 +29,7 @@ const books = [
     author: 'David Goggins',
     cover: david,
     publishedDate: '2023-05-15',
+    type: 'audiobook',  // Type added here
   },
   {
     id: 3,
@@ -34,6 +37,7 @@ const books = [
     author: 'Mark Manson',
     cover: subImage,
     publishedDate: '2022-01-01',
+    type: 'ebook',  // Type added here
   },
   {
     id: 4,
@@ -41,6 +45,7 @@ const books = [
     author: 'Morgan Housel',
     cover: phyImage,
     publishedDate: '2022-01-01',
+    type: 'audiobook',  // Type added here
   },
   {
     id: 5,
@@ -48,11 +53,13 @@ const books = [
     author: 'Gary John Bishop',
     cover: require('../../assets/unfuck.jpg'),
     publishedDate: '2016-07-22',
+    type: 'ebook',  // Type added here
   },
 ];
 
+
 const FeaturedBooks = () => {
-  const { user } = useAuth(); // Access user information from AuthContext
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [favoriteBooks, setFavoriteBooks] = useState({});
 

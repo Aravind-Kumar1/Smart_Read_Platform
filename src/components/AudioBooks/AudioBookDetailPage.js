@@ -1,108 +1,56 @@
-// AudioBookDetailPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../../Authentication/firebase/firebase";
 import './AudioBookDetailPage.css';
-import shettyImage from '../../assets/shetty.jpg'; // Replace with actual cover image
-import atad from '../../audio/atomic.mp3'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
 
-const audioBooks = [
-  {
-    id: 1,
-    title: 'Atomic Habits - Audiobook',
-    author: 'James Clear',
-    cover: shettyImage,
-    publishedDate: '2022-01-01',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    audioSrc: atad,
-    youtubeVideoId: '11ElXK_QMnA',
-  },
-  {
-    id: 2,
-    title: "Can't Hurt Me - Audiobook",
-    author: 'David Goggins',
-    cover: shettyImage,
-    publishedDate: '2023-05-15',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    audioSrc: atad,
-    youtubeVideoId: 'VzzU2uF2R-U',
-  },
-  {
-    id: 3,
-    title: "Can't Hurt Me - Audiobook",
-    author: 'David Goggins',
-    cover: shettyImage,
-    publishedDate: '2023-05-15',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    audioSrc: 'path/to/cant-hurt-me-audio.mp3',
-    youtubeVideoId: 'VzzU2uF2R-U',
-  },
-  {
-    id: 4,
-    title: "Can't Hurt Me - Audiobook",
-    author: 'David Goggins',
-    cover: shettyImage,
-    publishedDate: '2023-05-15',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    audioSrc: 'path/to/cant-hurt-me-audio.mp3',
-    youtubeVideoId: 'VzzU2uF2R-U',
-  },
-  {
-    id: 5,
-    title: "Can't Hurt Me - Audiobook",
-    author: 'David Goggins',
-    cover: shettyImage,
-    publishedDate: '2023-05-15',
-    genre: 'Self Help',
-    languages: 'English',
-    price: '₹0.00',
-    audioSrc: 'path/to/cant-hurt-me-audio.mp3',
-    youtubeVideoId: 'VzzU2uF2R-U',
-  },
-  // Add more audiobooks as needed
-];
-
-const recommendedAudiobooks = [
-  {
-    id: 6,
-    title: 'The Power of Now - Audiobook',
-    author: 'Eckhart Tolle',
-    cover: shettyImage,
-    price: '₹0.00',
-    audioSrc: 'path/to/power-of-now-audio.mp3',
-  },
-  {
-    id: 7,
-    title: 'The Subtle Art of Not Giving a F*ck - Audiobook',
-    author: 'Mark Manson',
-    cover: shettyImage,
-    price: '₹0.00',
-    audioSrc: 'path/to/subtle-art-audio.mp3',
-  },
- 
- 
-  // Add more recommended audiobooks as needed
-];
-
 const AudioBookDetailPage = () => {
   const { id } = useParams();
-  const audioBook = audioBooks.find(book => book.id === parseInt(id, 10));
-
+  const [audioBook, setAudioBook] = useState(null);
+  const [relatedBooks, setRelatedBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Scroll to top when the component mounts
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to the top
+    window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const fetchAudiobook = async () => {
+      try {
+        const docRef = doc(db, "audio_book_data", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setAudioBook({ id: docSnap.id, ...docSnap.data() });
+          fetchRelatedBooks(docSnap.data().genre);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching audiobook:", error);
+      }
+    };
+
+    fetchAudiobook();
+  }, [id]);
+
+  const fetchRelatedBooks = async (genre) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "audio_book_data"));
+      const allBooks = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.genre === genre && doc.id !== id) {
+          allBooks.push({ id: doc.id, ...data });
+        }
+      });
+      setRelatedBooks(allBooks);
+    } catch (error) {
+      console.error("Error fetching related books:", error);
+    }
+  };
 
   if (!audioBook) {
     return <div className="audio-book-not-found">Audio Book not found</div>;
@@ -110,6 +58,7 @@ const AudioBookDetailPage = () => {
 
   const handleFavoriteClick = () => {
     setIsFavorite(prevState => !prevState);
+    alert(`${audioBook.title} added to wishlist!`);
   };
 
   return (
@@ -135,50 +84,34 @@ const AudioBookDetailPage = () => {
             <p className="audio-book-languages">Languages: {audioBook.languages}</p>
             <p className="audio-book-price">Price: {audioBook.price}</p>
           </div>
-          
           <audio controls className="audio-player">
             <source src={audioBook.audioSrc} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>
-        <div className="youtube-video">
-          <iframe
-            src={`https://www.youtube.com/embed/${audioBook.youtubeVideoId}`}
-            title="Audio Book Video"
-            frameBorder="0"
-            allowFullScreen
-            width="100%"
-            height="315"
-          />
+        <div className="summary-layout">
+          <div className="summary-text">
+            <h2>Description</h2>
+            <p>{audioBook.description}</p>
+          </div>
         </div>
       </div>
 
-      {/* Popular Audiobooks Section */}
-      <h2 className="popular-audiobooks-heading">Popular Audiobooks</h2>
-      <div className="popular-audiobooks-container">
-        {audioBooks.map(book => (
-          <div className="popular-audiobook-card" key={book.id}>
-            <img src={book.cover} alt={book.title} className="popular-audiobook-cover" />
-            <h1 className="popular-audiobook-title">{book.title}</h1>
-            <p className="popular-audiobook-author">by {book.author}</p>
-            <p className="popular-audiobook-price">{book.price}</p>
-            <button className="popular-audiobook-button">Listen Now</button>
-          </div>
-        ))}
-      </div>
-
-      {/* Recommended Audiobooks Section */}
-      <h2 className="recommended-audiobooks-heading">Recommended Audiobooks</h2>
-      <div className="recommended-audiobooks-container">
-        {recommendedAudiobooks.map(book => (
-          <div className="recommended-audiobook-card" key={book.id}>
-            <img src={book.cover} alt={book.title} className="recommended-audiobook-cover" />
-            <h1 className="recommended-audiobook-title">{book.title}</h1>
-            <p className="recommended-audiobook-author">by {book.author}</p>
-            <p className="recommended-audiobook-price">{book.price}</p>
-            <button className="recommended-audiobook-button">Listen Now</button>
-          </div>
-        ))}
+      <h2 className="related-audiobooks-heading">You Might Also Like</h2>
+      <div className="related-audiobooks-container">
+        {relatedBooks.length > 0 ? (
+          relatedBooks.map(book => (
+            <div className="related-audiobook-card" key={book.id}>
+              <img src={book.cover} alt={book.title} className="related-audiobook-cover" />
+              <h1 className="related-audiobook-title">{book.title}</h1>
+              <p className="related-audiobook-author">by {book.author}</p>
+              <p className="related-audiobook-price">{book.price}</p>
+              <button className="related-audiobook-button">Listen Now</button>
+            </div>
+          ))
+        ) : (
+          <p>No related audiobooks found.</p>
+        )}
       </div>
     </div>
   );

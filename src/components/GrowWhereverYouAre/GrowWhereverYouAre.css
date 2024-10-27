@@ -17,14 +17,14 @@
     font-size: 18px;
     color: #666666;
     margin-top: 10px;
-    margin-bottom: 40px; /* Space above the text */
+    margin-bottom: 30px; /* Space above the text */
 }
   
 .image-container {
     display: flex; /* Flexbox for aligning images */
     justify-content: center; /* Center images */
     flex-wrap: wrap; /* Allow wrapping if necessary */
-    margin-top: 45px; /* Space above the image container */
+    margin-top: 10px; /* Space above the image container */
 }
   
 .image-wrapper {

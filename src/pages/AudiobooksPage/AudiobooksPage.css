@@ -77,7 +77,7 @@
 
 /* Details Section */
 .ab-audio-book-details {
-  margin-top: 10px; /* Adjust margin to give space below the cover */
+  margin-top: 6px; /* Adjust margin to give space below the cover */
   width: 100%;
 }
 
@@ -187,4 +187,9 @@
 .author-title {
   font-size: 14px; /* Reduced font size for a cleaner look */
   color: #666666;
+}
+.ab-audio-book-title {
+  font-size: 18px; /* Make sure it's readable */
+  color: #333; /* Ensure it's a visible color */
+  margin: 10px 0; /* Add some spacing */
 }

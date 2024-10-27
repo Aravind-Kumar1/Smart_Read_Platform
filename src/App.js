@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './Authentication/AuthContext'; // Adjust the path as necessary
@@ -27,12 +26,18 @@ import Favorites from './components/Favorites/Favorites';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Scroll to top on route change
+// CSS smooth scroll
+import './App.css'; // Ensure this includes the smooth scroll CSS
+
+// Scroll to top with smooth scroll on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scroll when changing routes
+    });
   }, [pathname]);
 
   return null;

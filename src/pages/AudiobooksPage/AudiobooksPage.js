@@ -59,7 +59,6 @@ const AudiobooksPage = () => {
                 <div className="ab-audio-book-details">
                   <h3 className="ab-audio-book-title">{audiobook.title}</h3>
                   <p className="ab-audio-book-author">{audiobook.author}</p>
-                  <p className="ab-audio-book-published-date">Published on: {audiobook.publishedDate}</p>
                 </div>
                 <div className="ab-audio-book-label">Listen Now</div>
               </div>
@@ -83,7 +82,6 @@ const AudiobooksPage = () => {
                 <div className="ab-audio-book-details">
                   <h3 className="ab-audio-book-title">{audiobook.title}</h3>
                   <p className="ab-audio-book-author">{audiobook.author}</p>
-                  <p className="ab-audio-book-published-date">Published on: {audiobook.publishedDate}</p>
                 </div>
                 <div className="ab-audio-book-label">Listen Now</div>
               </div>
@@ -91,21 +89,6 @@ const AudiobooksPage = () => {
           </div>
         </section>
 
-        {/* Suggested Authors Section */}
-        <section className="suggested-authors-section">
-          <h2 className="section-title">Suggested Authors</h2>
-          <div className="suggested-authors-grid">
-            {authors.map((author) => (
-              <div key={author.id} className="author-card">
-                <div className="author-image-container">
-                  <img src={author.image} alt={author.name} className="author-image" />
-                </div>
-                <h3 className="author-name">{author.name}</h3>
-                <p className="author-title">Author</p>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
     </div>
   );
