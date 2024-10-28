@@ -3,7 +3,7 @@ import { useAuth } from '../../Authentication/AuthContext';
 import { db } from '../../Authentication/firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import '../FeaturedBooks/FeaturedBooks.css';
-import { books } from '../../components/FeaturedBooks/FeaturedBooks';
+import { books } from '../../components/FeaturedBooks/FeaturedBooks'; // Ensure your books data includes audiobooks
 
 const Favorites = () => {
   const { user } = useAuth();
@@ -23,7 +23,7 @@ const Favorites = () => {
             id => docSnap.data()[id] === true
           );
 
-          // Filter favorite eBooks and audiobooks based on the type
+          // Assuming `books` is an array of both eBooks and audiobooks
           const filteredEBooks = books.filter(
             book => favoriteBookIds.includes(book.id.toString()) && book.type === 'ebook'
           );
@@ -48,7 +48,6 @@ const Favorites = () => {
       <section className="f-featured-books">
         <h2 className="f-featured-books-subheading">Your Favorite eBooks</h2>
         <p className="f-featured-books-subtagline">eBooks you've marked as favorites</p>
-
         <div className="f-featured-books-grid">
           {favoriteEBooks.length > 0 ? (
             favoriteEBooks.map(book => (
@@ -76,7 +75,6 @@ const Favorites = () => {
       <section className="f-featured-books">
         <h2 className="f-featured-books-subheading">Your Favorite Audiobooks</h2>
         <p className="f-featured-books-subtagline">Audiobooks you've marked as favorites</p>
-
         <div className="f-featured-books-grid">
           {favoriteAudiobooks.length > 0 ? (
             favoriteAudiobooks.map(book => (

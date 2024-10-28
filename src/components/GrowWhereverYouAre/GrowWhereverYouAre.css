@@ -1,55 +1,80 @@
 .grow-section {
-    background-color: white; /* Light background color */
-    padding: 20px; /* Padding around the text */
-    border-radius: 8px; /* Rounded corners */
-    margin: 20px 0; /* Space between sections */
-    text-align: center; /* Center the text */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
     margin-top: 10px;
 }
   
 .grow-title {
     margin-top: 10px;
-    font-size: 32px; /* Slightly smaller heading */
-    color: #003060; /* Dark color for the title */
+    font-size: 32px;
+    color: #003060;
 }
   
 .grow-text {
     font-size: 18px;
     color: #666666;
     margin-top: 10px;
-    margin-bottom: 30px; /* Space above the text */
+    margin-bottom: 30px;
 }
   
 .image-container {
-    display: flex; /* Flexbox for aligning images */
-    justify-content: center; /* Center images */
-    flex-wrap: wrap; /* Allow wrapping if necessary */
-    margin-top: 10px; /* Space above the image container */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
   
 .image-wrapper {
-    position: relative; /* Relative positioning for absolute child */
-    margin: 0 15px; /* Increased margin for spacing between images */
-    margin-bottom: 20px; /* Additional margin below each image wrapper */
-}
-  
-.image-overlay {
-    position: absolute; /* Absolute positioning for overlay */
-    top: 0; /* Aligns to the top of the image */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust for centering */
-    background-color: rgba(255, 255, 255, 0.8); /* Light background color */
-    padding: 5px 10px; /* Padding for the overlay */
-    border-radius: 5px; /* Rounded corners */
-    color: #003060; /* Dark text color */
-    font-size: 14px; /* Font size for the overlay text */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for effect */
+    position: relative;
+    margin: 0 15px;
+    margin-bottom: 20px;
 }
   
 .test-image {
-    width: 250px; /* Adjust width as needed for images */
-    height: 300px; /* Adjust height as needed for images */
-    border-radius: 25px; /* Optionally adjust border radius */
-    object-fit: cover; /* Ensures the image covers the space without distortion */
-    animation: bounce 1s infinite; /* Animation for bounce effect */
+    width: 250px;
+    height: 300px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+/* Overlay common styles */
+.image-overlay {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #003060;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Unique styles for each overlay */
+.chores-overlay {
+    margin-top: 27px;
+    background-color: rgba(235, 226, 226, 0.8);
+    color: #003060;
+}
+
+.nature-overlay {
+    margin-top: -15px;
+    background-color: rgba(213, 222, 213, 0.8);
+    color: #003060;
+}
+
+.reading-overlay {
+    margin-top: 15px;
+    background-color: rgba(209, 209, 211, 0.8);
+    color: #003060;
+}
+
+.commuting-overlay {
+    margin-top: -3px;
+    background-color: rgba(220, 220, 211, 0.8);
+    color: #003060;
 }

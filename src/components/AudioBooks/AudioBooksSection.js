@@ -1,33 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
 import AudioBookCard from './AudioBookCard';
 import './AudioBooksSection.css';
-import biImage from '../../assets/bible.jpeg';
-import phyImage from '../../assets/phy.jpg';
-import hoImage from '../../assets/ho.jpg';
-import dieImage from '../../assets/die.jpeg';
-import '../BookDetailPage/BookDetailPage'
-import book1 from '../../assets/bama.png';
-
-// Sample data
-const audiobooks = [
-  {
-    id: 1,
-    title: 'Atomic Habits',
-    author: 'James Clear',
-    cover: book1,
-    publishedDate: '2022-01-01',
-  },
-  { id: 2, title: '1984', author: 'George Orwell', cover: phyImage },
-  { id: 3, title: 'Brave New World', author: 'Aldous Huxley', cover: hoImage },
-  { id: 4, title: 'The Catcher in the Rye', author: 'J.D. Salinger', cover: dieImage },
-  { id: 5, title: 'To Kill a Mockingbird', author: 'Harper Lee', cover: phyImage },
-];
+import { db } from '../../Authentication/firebase/firebase'; // Import your initialized Firestore instance
 
 const AudioBooksSection = () => {
+  const [audiobooks, setAudiobooks] = useState([]); // State to hold audiobooks
+  const [favorites, setFavorites] = useState([]); // State to hold favorite audiobooks
+  const [message, setMessage] = useState(''); // State to hold messages
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchAudiobooks = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'audio_main')); // Fetch documents from Firestore
+        const audiobooksData = querySnapshot.docs.map(doc => ({
+          id: doc.id, // Use Firestore document ID as the id
+          ...doc.data(), // Spread the document data
+        }));
+        setAudiobooks(audiobooksData); // Set the state with the fetched data
+      } catch (error) {
+        console.error('Error fetching audiobooks: ', error);
+      }
+    };
+
+    fetchAudiobooks(); // Call the fetch function
+
     const scrollPosition = sessionStorage.getItem('audioBooksScrollPosition');
     if (scrollPosition) {
       window.scrollTo(0, parseInt(scrollPosition, 10));
@@ -48,7 +47,19 @@ const AudioBooksSection = () => {
   const handleCardClick = (id) => {
     sessionStorage.removeItem('audioBooksScrollPosition'); // Clear the stored scroll position
     window.scrollTo(0, 0); // Scroll to the top of the page
-    navigate(`/audiobook/${id}`); // Adjust the route to match your setup
+    navigate(`/audiobook/${id}`);
+  };
+
+  const toggleFavorite = (id) => {
+    if (favorites.includes(id)) {
+      setFavorites(favorites.filter(favoriteId => favoriteId !== id));
+      setMessage('Removed from favorites'); // Set message when unfavoriting
+    } else {
+      setFavorites([...favorites, id]);
+      setMessage('Added to favorites'); // Set message when favoriting
+    }
+    // Automatically clear the message after 2 seconds
+    setTimeout(() => setMessage(''), 2000);
   };
 
   return (
@@ -57,14 +68,18 @@ const AudioBooksSection = () => {
       <p className="audio-books-tagline">
         Thousands of included titles in the Plus Catalogue. No cap on listening time.
       </p>
+      {message && <p className="favorite-message">{message}</p>} {/* Show message */}
       <div className="audio-books-grid">
         {audiobooks.map((book) => (
           <AudioBookCard 
             key={book.id} 
+            id={book.id}
             title={book.title} 
             author={book.author} 
             cover={book.cover} 
-            onClick={() => handleCardClick(book.id)} // Pass the click handler
+            onClick={() => handleCardClick(book.id)} 
+            onFavoriteToggle={() => toggleFavorite(book.id)} // Add favorite toggle function
+            isFavorite={favorites.includes(book.id)} // Pass favorite status to the card
           />
         ))}
       </div>

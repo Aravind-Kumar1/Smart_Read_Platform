@@ -78,3 +78,21 @@
   color: inherit; /* Inherit text color */
   display: block; /* Make the entire card clickable */
 }
+.audio-book-cover-container {
+  position: relative;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #B0B0B0;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.favorite-icon.filled {
+  color: #FF0000;
+  transform: scale(1.2);
+}
