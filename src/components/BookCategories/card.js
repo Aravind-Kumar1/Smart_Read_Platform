@@ -5,7 +5,7 @@ import './card.css';
 const BookCard = ({ book }) => {
   const handleReadClick = () => {
     if (book.pdfUrl) {
-      console.log("Opening PDF:", book.pdfUrl); // Debugging log
+      console.log("Opening PDF:", book.pdfUrl);
       window.open(book.pdfUrl, '_blank');
     } else {
       console.error("PDF link is not available for this book.");
@@ -34,11 +34,11 @@ const BookCard = ({ book }) => {
 BookCard.propTypes = {
   book: PropTypes.shape({
     coverImage: PropTypes.string,
-    cover: PropTypes.string, // Support alternative field for cover image
+    cover: PropTypes.string,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     publishedDate: PropTypes.string,
-    pdfUrl: PropTypes.string, // PDF link for the book
+    pdfUrl: PropTypes.string,
   }).isRequired,
 };
 
