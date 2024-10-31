@@ -6,7 +6,7 @@ const BookCard = ({ book }) => {
   const handleReadClick = () => {
     if (book.pdfUrl) {
       console.log("Opening PDF:", book.pdfUrl);
-      window.open(book.pdfUrl, '_blank');
+      window.open(book.pdfUrl, '_self');
     } else {
       console.error("PDF link is not available for this book.");
     }

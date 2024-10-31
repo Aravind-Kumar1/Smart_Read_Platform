@@ -1,37 +1,35 @@
 // BookCategories.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './BookCategories.css';
 import {
-  FaBook, FaLightbulb, FaBalanceScale, FaBullhorn, FaLeaf, FaHeart,
+  FaBook, FaRocket, FaBalanceScale, FaBullhorn, FaLeaf, FaHeart,
   FaUserGraduate, FaGlobe, FaHistory, FaHandsHelping, FaIndustry,
-  FaChartLine, FaRocket, FaPiggyBank, FaThumbsUp, FaCoins
+  FaChartLine, FaThumbsUp, FaPiggyBank, FaCoins
 } from 'react-icons/fa';
+import './BookCategories.css';
 
 const categories = [
-  { name: 'Popular', icon: <FaBook className="category-icon" /> },
-  { name: 'Entrepreneurship', icon: <FaRocket className="category-icon" /> },
-  { name: 'Politics', icon: <FaBalanceScale className="category-icon" /> },
-  { name: 'Marketing & Sales', icon: <FaBullhorn className="category-icon" /> },
-  { name: 'Science', icon: <FaLeaf className="category-icon" /> },
-  { name: 'Health & Nutrition', icon: <FaHeart className="category-icon" /> },
-  { name: 'Personal Development', icon: <FaUserGraduate className="category-icon" /> },
-  { name: 'Economics', icon: <FaGlobe className="category-icon" /> },
-  { name: 'History', icon: <FaHistory className="category-icon" /> },
-  { name: 'Communication Skills', icon: <FaHandsHelping className="category-icon" /> },
-  { name: 'Corporate Culture', icon: <FaIndustry className="category-icon" /> },
-  { name: 'Management & Leadership', icon: <FaChartLine className="category-icon" /> },
-  { name: 'Motivation & Inspiration', icon: <FaThumbsUp className="category-icon" /> },
-  { name: 'Money & Investments', icon: <FaPiggyBank className="category-icon" /> },
-  { name: 'Wealth Management', icon: <FaCoins className="category-icon" /> },
+  { name: 'popular', displayName: 'Popular', icon: <FaBook className="category-icon" /> },
+  { name: 'entrepreneurship', displayName: 'Entrepreneurship', icon: <FaRocket className="category-icon" /> },
+  { name: 'politics', displayName: 'Politics', icon: <FaBalanceScale className="category-icon" /> },
+  { name: 'marketing-sales', displayName: 'Marketing & Sales', icon: <FaBullhorn className="category-icon" /> },
+  { name: 'science', displayName: 'Science', icon: <FaLeaf className="category-icon" /> },
+  { name: 'health-nutrition', displayName: 'Health & Nutrition', icon: <FaHeart className="category-icon" /> },
+  { name: 'personal-development', displayName: 'Personal Development', icon: <FaUserGraduate className="category-icon" /> },
+  { name: 'economics', displayName: 'Economics', icon: <FaGlobe className="category-icon" /> },
+  { name: 'history', displayName: 'History', icon: <FaHistory className="category-icon" /> },
+  { name: 'communication-skills', displayName: 'Communication Skills', icon: <FaHandsHelping className="category-icon" /> },
+  { name: 'motivation-inspiration', displayName: 'Motivation & Inspiration', icon: <FaThumbsUp className="category-icon" /> },
+  { name: 'money-investments', displayName: 'Money & Investments', icon: <FaPiggyBank className="category-icon" /> },
+  
 ];
 
 const BookCategories = () => {
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryName) => {
-    const collectionName = categoryName.toLowerCase().replace(/ & /g, "_").replace(/ /g, "_");
-    navigate(`/category/${collectionName}`);
+  const handleCategoryClick = (displayName) => {
+    const selectedCategory = categories.find(category => category.displayName === displayName);
+    navigate(`/category/${selectedCategory.name}`);
   };
 
   return (
@@ -43,10 +41,10 @@ const BookCategories = () => {
           <div 
             key={index} 
             className="category-item flex flex-row items-center gap-4 rounded-lg shadow-lg transition-transform hover:scale-105 cursor-pointer p-4"
-            onClick={() => handleCategoryClick(category.name)}
+            onClick={() => handleCategoryClick(category.displayName)}
           >
             {category.icon}
-            <div className="category-name font-medium">{category.name}</div>
+            <div className="category-name font-medium">{category.displayName}</div>
           </div>
         ))}
       </div>

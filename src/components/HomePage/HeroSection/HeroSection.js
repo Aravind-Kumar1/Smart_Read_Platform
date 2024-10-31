@@ -11,6 +11,7 @@ import subImage from '../../../assets/sub.jpg';
 import moImage from '../../../assets/mo.webp';
 import shettyImage from '../../../assets/shetty.jpg';
 import dieImage from '../../../assets/die.jpeg';
+import rich from '../../../assets/rich.jpeg';
 
 const books = [
   { cover: shettyImage },
@@ -19,7 +20,7 @@ const books = [
   { cover: davidImage },
   { cover: harryImage },
   { cover: howImage },
-  { cover: dieImage },
+  { cover: rich },
   { cover: obamaImage },
 ];
 
@@ -37,7 +38,7 @@ const HeroSection = () => {
             Get the key ideas from the top <span className="ellipse blue">books</span>,
           </p>
           <p className="aligned-quote">
-          <span className="ellipse orange">podcasts</span> , and <span className="ellipse pink">audiobooks</span> with the 
+          <span className="ellipse orange"> by note-taking</span> , and <span className="ellipse pink">audiobooks</span> with the 
           </p>
           <p className="aligned-quote">
             <span className="highlight green">Smart-Read</span>.
@@ -45,7 +46,7 @@ const HeroSection = () => {
         </div>
 
         <div className="buttons">
-          <a href="https://github.com" className="github-button">
+          <a href="https://github.com/Aravind-Kumar1/SMART_READ" className="github-button">
             <FontAwesomeIcon icon={faGithub} /> GitHub
           </a>
         </div>

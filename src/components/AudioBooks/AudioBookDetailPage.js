@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../Authentication/firebase/firebase";
 import './AudioBookDetailPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +9,6 @@ import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/fre
 const AudioBookDetailPage = () => {
   const { id } = useParams();
   const [audioBook, setAudioBook] = useState(null);
-  const [relatedBooks, setRelatedBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const AudioBookDetailPage = () => {
 
         if (docSnap.exists()) {
           setAudioBook({ id: docSnap.id, ...docSnap.data() });
-          fetchRelatedBooks(docSnap.data().genre);
         } else {
           console.log("No such document!");
         }
@@ -35,22 +33,6 @@ const AudioBookDetailPage = () => {
 
     fetchAudiobook();
   }, [id]);
-
-  const fetchRelatedBooks = async (genre) => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "audio_book_data"));
-      const allBooks = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.genre === genre && doc.id !== id) {
-          allBooks.push({ id: doc.id, ...data });
-        }
-      });
-      setRelatedBooks(allBooks);
-    } catch (error) {
-      console.error("Error fetching related books:", error);
-    }
-  };
 
   if (!audioBook) {
     return <div className="audio-book-not-found">Audio Book not found</div>;
@@ -84,34 +66,26 @@ const AudioBookDetailPage = () => {
             <p className="audio-book-languages">Languages: {audioBook.languages}</p>
             <p className="audio-book-price">Price: {audioBook.price}</p>
           </div>
-          <audio controls className="audio-player">
-            <source src={audioBook.audioSrc} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
         </div>
         <div className="summary-layout">
           <div className="summary-text">
-            <h2>Description</h2>
-            <p>{audioBook.description}</p>
+            <h2 className="summary-heading">Listen to this Audiobook</h2>
+            <iframe
+              style={{ borderRadius: "12px" }}
+              src={audioBook.iframeEmbedCode} // Fetch iframe code from Firebase
+              width="100%"
+              height="250"
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
       </div>
-
-      <h2 className="related-audiobooks-heading">You Might Also Like</h2>
-      <div className="related-audiobooks-container">
-        {relatedBooks.length > 0 ? (
-          relatedBooks.map(book => (
-            <div className="related-audiobook-card" key={book.id}>
-              <img src={book.cover} alt={book.title} className="related-audiobook-cover" />
-              <h1 className="related-audiobook-title">{book.title}</h1>
-              <p className="related-audiobook-author">by {book.author}</p>
-              <p className="related-audiobook-price">{book.price}</p>
-              <button className="related-audiobook-button">Listen Now</button>
-            </div>
-          ))
-        ) : (
-          <p>No related audiobooks found.</p>
-        )}
+      {/* Full-width summary section */}
+      <div className="summary-section">
+        <h2 className="summary-heading">Summary</h2>
+        <p className="summary-text">{audioBook.summary}</p>
       </div>
     </div>
   );
