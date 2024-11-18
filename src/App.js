@@ -6,7 +6,7 @@ import Header from './components/HomePage/Header/Header';
 import HeroSection from './components/HomePage/HeroSection/HeroSection';
 import BookCategories from './components/BookCategories/BookCategories';
 import FeaturedBooks from './components/FeaturedBooks/FeaturedBooks';
-import AudioBooksSection from './components/AudioBooks/AudioBooksSection';
+
 import Testimonials from './components/Testimonials/Testimonials';
 import GrowWhereverYouAre from './components/GrowWhereverYouAre/GrowWhereverYouAre';
 import Footer from './components/Footer/Footer';
@@ -23,6 +23,8 @@ import BookmarkPdfViewer from './components/pdfFeatures/Bookmarks/BookmarkPdfVie
 import FAQ from './components/faq/faq';
 import CategoryPage from './components/BookCategories/CategoryPage';
 import Favorites from './components/Favorites/Favorites';
+import Importance from './components/Importance/ImportanceOfReading';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -63,7 +65,7 @@ const HomePage = () => (
     <HeroSection />
     <BookCategories />
     <FeaturedBooks />
-    <AudioBooksSection />
+    <Importance />
     <Testimonials />
     <GrowWhereverYouAre />
     <FAQ />
@@ -91,6 +93,7 @@ function App() {
           <Route path="/bookmarks" element={<Layout><BookmarkPdfViewer /></Layout>} />
           <Route path="/category/:name" element={<Layout><CategoryPage /></Layout>} />
           <Route path="/favorites" element={<Layout><Favorites /></Layout>} />
+          
         </Routes>
       </Router>
     </AuthProvider>

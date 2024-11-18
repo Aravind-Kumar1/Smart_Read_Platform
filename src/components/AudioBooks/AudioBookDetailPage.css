@@ -1,3 +1,4 @@
+/* Global Variables */
 :root {
   --main-color: #003060;
   --highlight-color: #FF5100;
@@ -9,6 +10,7 @@
   --content-max-width: 1200px;
 }
 
+/* Audio Book Detail Page Container */
 .audio-book-detail-container {
   display: flex;
   flex-direction: column;
@@ -17,6 +19,7 @@
   background-color: var(--light-color);
 }
 
+/* Heading for Audio Book Details */
 .audio-book-detail-heading {
   color: var(--main-color);
   font-size: 28px;
@@ -26,6 +29,7 @@
   align-self: flex-start;
 }
 
+/* Content Section Styling */
 .audio-book-detail-content {
   display: flex;
   flex-direction: row;
@@ -39,6 +43,7 @@
   align-items: flex-start;
 }
 
+/* Image Box Styling */
 .audio-book-detail-image {
   position: relative;
   margin-top: 40px;
@@ -53,6 +58,7 @@
   align-items: center;
 }
 
+/* Book Cover Styling */
 .audio-book-cover-box {
   position: relative;
 }
@@ -63,6 +69,7 @@
   border-radius: 5px;
 }
 
+/* Favorite Icon Styling */
 .favorite-icon {
   position: absolute;
   top: 10px;
@@ -81,6 +88,7 @@
   color: #B0B0B0;
 }
 
+/* Audio Book Information Section */
 .audio-book-detail-info {
   display: flex;
   flex-direction: column;
@@ -90,6 +98,7 @@
   margin-top: 5%;
 }
 
+/* Book Title Styling */
 .audio-book-title {
   font-size: 21px;
   margin-bottom: 10px;
@@ -97,6 +106,7 @@
   color: var(--text-color);
 }
 
+/* Audio Book Meta Information */
 .audio-book-meta {
   display: flex;
   flex-direction: column;
@@ -110,25 +120,150 @@
   line-height: 1.5;
 }
 
-
-
+/* Summary Section Styling */
 .summary-section {
-  width: 100%; /* Full width */
-  padding: 20px; /* Padding around the section */
-  background-color: var(--light-color); /* Light background color for contrast */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin-top: 20px; /* Spacing above the section */
+  width: 50%;
+  padding: 0px;
+  background-color: var(--light-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .summary-heading {
-  font-size: 24px; /* Font size for heading */
-  color: var(--main-color); /* Heading color */
-  margin-bottom: 10px; /* Space below heading */
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--main-color);
+  margin-bottom: 10px;
 }
 
 .summary-text {
-  font-size: 16px; /* Font size for summary text */
-  color: var(--text-color); /* Text color */
-  line-height: 1.5; /* Spacing between lines */
+  font-size: 16px;
+  color: var(--subtext-color);
+  line-height: 1.5;
+}
+
+/* Review Section Styling */
+.review-section {
+  margin-left: 40px;
+  width: 300px;
+  padding: 20px;
+  background-color: #F1F1F1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Star Rating Styling */
+.star-rating {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--highlight-color);
+}
+
+.star.filled {
+  color: #FF5100;
+}
+
+.star.empty {
+  color: #DCDCDC;
+}
+
+.star.spark {
+  animation: sparkAnimation 0.5s ease-out;
+}
+
+@keyframes sparkAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Review Message Styling */
+.review-message {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Submit Review Button Styling */
+.submit-review {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--highlight-color);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-review:hover {
+  background-color: #e74600;
+}
+
+/* Toggle Summary Button Styling */
+.toggle-summary-btn {
+  margin-top: 10px;
+  background-color: var(--highlight-color);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-summary-btn:hover {
+  background-color: #e74600;
+}
+
+/* Toast Notification Styling */
+.toast-notification-a {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  opacity: 0;
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
 }
