@@ -14,10 +14,9 @@ Smart Read is an innovative platform designed to enhance book reading and engage
 - 🚀 **Optimized Performance** - 40% faster data retrieval using Firestore  
 
 ## 🛠️ Tech Stack  
-- **Frontend:** React.js, Next.js, CSS, ShadCN  
+- **Frontend:**| React, Firebase, Firestore  
 - **Backend:** Firebase (Firestore for real-time database)  
 - **Authentication:** Firebase Authentication  
-- **Deployment:** Vercel  
 
 ## 🔧 Getting Started  
 
